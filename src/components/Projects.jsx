@@ -42,7 +42,7 @@ const Projects = () => {
       tags: ["React", "Vite","Tailwind CSS", "Framer Motion"],
       image: portfolio,
       github: "https://github.com/georgedevs/Portfolio", 
-      live: "https://portfolio-gamma-lovat-13.vercel.app/",
+      live: "https://ukohgodwingeorge-portfolio.vercel.app/",
     },
     {
       title: "SkillNest",
