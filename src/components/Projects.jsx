@@ -1,39 +1,101 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
-import { Github, ExternalLink } from 'lucide-react';
+import ImageGallery from 'react-image-gallery';
+import "react-image-gallery/styles/css/image-gallery.css";
+import { Github, ExternalLink, Eye, Instagram, X } from 'lucide-react';
 import project1 from '../assets/projects/project1.jpg';
 import election from '../assets/projects/election.jpg';
+import election2 from '../assets/projects/ELECTION 2.PNG';
+import election3 from '../assets/projects/ELECTION 3.PNG';
+import election4 from '../assets/projects/ELECTION 4.PNG';
+import election5 from '../assets/projects/ELECTION 5.PNG';
+import election6 from '../assets/projects/ELECTION 6.PNG';
+import portfolio from '../assets/projects/portfolio.png';
 
 const Projects = () => {
+  const [selectedProjectGallery, setSelectedProjectGallery] = useState(null);
+  const [selectedPost, setSelectedPost] = useState(null);
   const { theme } = useTheme();
 
   const projects = [
     {
       title: "E-Voting System",
-      description: "A secure electronic voting system built with PHP and MySQL, featuring user authentication, real-time vote counting, and admin dashboard for election management.",
+      description: "A comprehensive digital voting platform designed to modernize and secure the electoral process. The system provides a user-friendly interface for voters, administrators, and election officials, implementing robust authentication, real-time vote tracking, and transparent result management. Key features include secure login, candidate registration, voting mechanism, and detailed election analytics.",
       tags: ["PHP", "MySQL", "Bootstrap", "XAMPP", "HTML", "CSS", "JavaScript"],
       image: election,
       github: "https://github.com/georgedevs/E-Voting-System",
-      live: null // No live demo for this project
+      live: null,
+      galleryImages: [
+        { original: election, thumbnail: election },
+        { original: election2, thumbnail: election2 },
+        { original: election3, thumbnail: election3 },
+        { original: election4, thumbnail: election4 },
+        { original: election5, thumbnail: election5 },
+        { original: election6, thumbnail: election6 },
+      ],
+      instagramPost: 'DCO5boliTIB'
     },
     {
       title: "Personal Portfolio",
-      description: "A modern, responsive portfolio website showcasing my projects and skills. Built with React and featuring smooth animations, dark mode support, and interactive elements.",
-      tags: ["React", "Tailwind CSS", "Framer Motion"],
-      image: "/api/placeholder/600/400",
-      github: "", // To be updated
-      live: "" // To be updated
+      description: "A sophisticated, responsive personal portfolio website meticulously crafted to showcase professional projects, skills, and creative capabilities. Leveraging modern web technologies, the site features smooth, engaging animations, multiple color mode support, and an intuitive, interactive design that provides a comprehensive overview of professional achievements and technical expertise.",
+      tags: ["React", "Vite","Tailwind CSS", "Framer Motion"],
+      image: portfolio,
+      github: "https://github.com/georgedevs/Portfolio", 
+      live: "https://portfolio-gamma-lovat-13.vercel.app/",
     },
     {
       title: "SkillNest",
-      description: "A full-stack e-learning platform revolutionizing online education. Features video-based courses, real-time progress tracking, secure payments, and an intuitive user experience.",
+      description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. The platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. Designed to bridge the gap between learners and quality educational content across various disciplines.",
       tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "React", "Express"],
       image: project1,
-      github: null, // Private repository
+      github: null,
       live: "https://skill-nest-client.vercel.app/"
     }
   ];
+
+  const openGallery = (projectGallery) => {
+    setSelectedProjectGallery(projectGallery);
+  };
+
+  const closeGallery = () => {
+    setSelectedProjectGallery(null);
+  };
+
+  const openInstagramPost = (postId) => {
+    setSelectedPost(postId);
+  };
+
+  const closeInstagramPost = () => {
+    setSelectedPost(null);
+  };
+
+  useEffect(() => {
+    const handleEscapeKey = (e) => {
+      if (e.key === 'Escape') {
+        closeGallery();
+        closeInstagramPost();
+      }
+    };
+
+    const handleOutsideClick = (e) => {
+      const modalContainers = document.querySelectorAll('.modal-container');
+      modalContainers.forEach((container) => {
+        if (e.target === container) {
+          closeGallery();
+          closeInstagramPost();
+        }
+      });
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    document.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscapeKey);
+      document.removeEventListener('click', handleOutsideClick);
+    };
+  }, []);
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -155,6 +217,24 @@ const Projects = () => {
                       <span className={`${themeConfig[theme].text}`}>Live Demo</span>
                     </motion.a>
                   )}
+                  {project.instagramPost && (
+                    <motion.button
+                      onClick={() => openInstagramPost(project.instagramPost)}
+                      className="flex items-center space-x-2 text-sm font-medium"
+                    >
+                      <Instagram  className="w-4 h-4" />
+                      <span>View Project Post</span>
+                    </motion.button>
+                  )}
+                   {project.live === null && (
+                    <motion.button
+                      onClick={() => openGallery(project.galleryImages)}
+                      className="flex items-center space-x-2 text-sm font-medium"
+                    >
+                      <Eye className="w-4 h-4" />
+                      <span>View Project Images</span>
+                    </motion.button>
+                  )}
                 </div>
               </div>
 
@@ -174,6 +254,50 @@ const Projects = () => {
           ))}
         </motion.div>
       </motion.div>
+
+      {/* Image Gallery Modal */}
+      {selectedProjectGallery && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 modal-container p-4"
+        >
+          <div className="w-full max-w-4xl relative">
+            <button 
+              onClick={closeGallery} 
+              className="absolute -top-8 right-0 text-white flex items-center"
+            >
+              <X className="w-6 h-6 mr-2" /> Close
+            </button>
+            <ImageGallery 
+              items={selectedProjectGallery} 
+              showPlayButton={false}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Instagram Post Modal */}
+      {selectedPost && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-80 modal-container p-4"
+        >
+          <div className="w-full max-w-md relative">
+            <button 
+              onClick={closeInstagramPost} 
+              className="absolute -top-8 right-0 text-white flex items-center"
+            >
+              <X className="w-6 h-6 mr-2" /> Close
+            </button>
+            <iframe 
+              src={`https://www.instagram.com/p/${selectedPost}/embed`}
+              width="100%" 
+              height="500"
+              frameBorder="0"
+              scrolling="no"
+              allowFullScreen={true}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

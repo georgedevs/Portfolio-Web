@@ -11,6 +11,10 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('');
+
+  
+  const FORMSPREE_ENDPOINT = `https://formspree.io/f/xgvezbyl`;
 
   const contactInfo = [
     {
@@ -60,14 +64,33 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setIsSubmitting(false);
-    setFormState({ name: '', email: '', message: '' });
+    setSubmitStatus('');
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        body: JSON.stringify(formState),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        setSubmitStatus('Message sent successfully!');
+        setFormState({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('Failed to send message. Please try again.');
+      }
+    } catch (error) {
+      setSubmitStatus('Failed to send message. Please try again.');
+      console.error('Submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <div className={`py-20 ${themeConfig[theme].primary} transition-colors duration-500 min-h-screen`}>
+    <div id="contact" className={`py-20 ${themeConfig[theme].primary} transition-colors duration-500 min-h-screen`}>
       <motion.div
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
         variants={containerVariants}
@@ -198,6 +221,12 @@ const Contact = () => {
                 <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
                 <Send className={`w-4 h-4 ${isSubmitting ? 'animate-pulse' : ''}`} />
               </motion.button>
+
+              {submitStatus && (
+                <div className={`text-center mt-4 ${submitStatus.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
+                  {submitStatus}
+                </div>
+              )}
             </div>
           </motion.form>
         </div>

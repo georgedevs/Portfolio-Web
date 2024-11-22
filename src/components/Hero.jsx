@@ -56,7 +56,6 @@ const RainBackground = () => {
 };
 
 const ModernHero = () => {
-  // Rest of your code remains exactly the same...
   const { theme } = useTheme();
   const [displayedName, setDisplayedName] = useState('');
   const [showCursor, setShowCursor] = useState(true);
@@ -64,6 +63,13 @@ const ModernHero = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedDescription, setDisplayedDescription] = useState('');
+  
+  const scrollToContact = () => {
+    const contactSection = document.getElementById('contact');
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   
   const name = "Ukoh-Godwin George";
   const description = "Crafting digital experiences with code. Specialized in building exceptional applications that combine innovative design with robust functionality. Let's turn your vision into reality.";
@@ -74,7 +80,7 @@ const ModernHero = () => {
     'Backend Developer',
   ];
 
-  // Name typing effect with cursor removal
+ 
   useEffect(() => {
     let index = 0;
     const typeName = async () => {
@@ -90,7 +96,7 @@ const ModernHero = () => {
     typeName();
   }, []);
 
-  // Description typing effect
+
   useEffect(() => {
     let index = 0;
     const typeDescription = async () => {
@@ -104,7 +110,7 @@ const ModernHero = () => {
     typeDescription();
   }, []);
 
-  // Role typing effect
+ 
   useEffect(() => {
     const currentRole = roles[roleIndex];
     const timeout = setTimeout(() => {
@@ -204,24 +210,26 @@ const ModernHero = () => {
             transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row items-center justify-center space-y-3 sm:space-y-0 sm:space-x-4"
           >
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`w-full sm:w-auto px-6 py-3 rounded-lg ${themeConfig[theme].button} flex items-center justify-center space-x-2 text-sm sm:text-base`}
-            >
-              <span>Get in Touch</span>
-              <ArrowRight className="w-4 h-4" />
-            </motion.button>
+           <motion.button
+  onClick={scrollToContact}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className={`w-full sm:w-auto px-6 py-3 rounded-lg ${themeConfig[theme].button} flex items-center justify-center space-x-2 text-sm sm:text-base`}
+>
+  <span>Get in Touch</span>
+  <ArrowRight className="w-4 h-4" />
+</motion.button>
 
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`w-full sm:w-auto px-6 py-3 rounded-lg border-2 ${themeConfig[theme].borderButton} 
-                hover:bg-blue-500/10 transition-colors duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base`}
-            >
-              <span>Download CV</span>
-              <Download className="w-4 h-4" />
-            </motion.button>
+<motion.button
+  onClick={() => window.open('/RESUME.pdf', '_blank')}
+  whileHover={{ scale: 1.05 }}
+  whileTap={{ scale: 0.95 }}
+  className={`w-full sm:w-auto px-6 py-3 rounded-lg border-2 ${themeConfig[theme].borderButton} 
+    hover:bg-blue-500/10 transition-colors duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base`}
+>
+  <span>Download CV</span>
+  <Download className="w-4 h-4" />
+</motion.button>
           </motion.div>
         </div>
       </motion.div>

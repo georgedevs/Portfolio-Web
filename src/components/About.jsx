@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
+import React, { useRef} from 'react';
+import { motion, useInView } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import { Code, Brain, Rocket, GraduationCap } from 'lucide-react';
 
@@ -26,32 +26,6 @@ const About = () => {
       </motion.div>
     );
   };
-  const SmoothScroll = ({ children }) => {
-    const { theme } = useTheme();
-    const containerRef = useRef(null);
-    const [pageHeight, setPageHeight] = useState(0);
-    
-    const { scrollY } = useScroll();
-    const transform = useTransform(scrollY, [0, pageHeight], [0, -pageHeight]);
-    const physics = { damping: 15, mass: 0.27, stiffness: 55 };
-    const spring = useSpring(transform, physics);
-  
-    useEffect(() => {
-      setPageHeight(containerRef.current?.scrollHeight || 0);
-    }, []);
-
-    return (
-        <div className="fixed inset-0 overflow-hidden">
-          <motion.div
-            ref={containerRef}
-            style={{ y: spring }}
-            className="w-full"
-          >
-            {children}
-          </motion.div>
-        </div>
-      );
-    };
   
 
   const skills = [

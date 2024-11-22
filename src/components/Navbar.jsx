@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
-import { FaLinkedin, FaGithub, FaTwitter } from "react-icons/fa";
+import { FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { Menu } from '@headlessui/react';
 import { Palette, ChevronDown, Menu as MenuIcon, X } from 'lucide-react';
 import demo from '../assets/demo.png';
@@ -19,7 +19,7 @@ const ModernNavbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Simple logo variant with initial animation only
+
   const Logo = () => (
     <motion.div
       initial={{ scale: 0, rotate: -180 }}
@@ -33,7 +33,6 @@ const ModernNavbar = () => {
     </motion.div>
   );
 
-  // Enhanced social icon with bounce animation
   const SocialIcon = ({ Icon, href, label, index }) => (
     <motion.a
       href={href}
@@ -65,7 +64,7 @@ const ModernNavbar = () => {
     </motion.a>
   );
 
-  // Available indicator with simpler animation
+
   const AvailableIndicator = () => (
     <motion.div
       initial={{ opacity: 0, x: -20 }}
@@ -108,9 +107,9 @@ const ModernNavbar = () => {
             <AvailableIndicator />
             
             <div className="flex items-center space-x-4">
-              <SocialIcon Icon={FaGithub} href="https://github.com" label="GitHub" index={0} />
-              <SocialIcon Icon={FaLinkedin} href="https://linkedin.com" label="LinkedIn" index={1} />
-              <SocialIcon Icon={FaTwitter} href="https://twitter.com" label="Twitter" index={2} />
+            <SocialIcon Icon={FaGithub} href="https://github.com/georgedevs" label="GitHub" index={0} />
+                  <SocialIcon Icon={FaLinkedin} href="https://ng.linkedin.com/in/ukoh-godwin-george-b72b5b32a" label="LinkedIn" index={1} />
+                  <SocialIcon Icon={FaInstagram} href="https://www.instagram.com/george_devss/" label="Instagram" index={2} />
             </div>
 
             <ThemeSwitcher theme={theme} toggleTheme={toggleTheme} availableThemes={availableThemes} />
@@ -142,9 +141,9 @@ const ModernNavbar = () => {
             >
               <div className={`py-4 space-y-4 ${themeConfig[theme].secondary} rounded-b-xl`}>
                 <div className="flex justify-center space-x-4">
-                  <SocialIcon Icon={FaGithub} href="https://github.com" label="GitHub" index={0} />
-                  <SocialIcon Icon={FaLinkedin} href="https://linkedin.com" label="LinkedIn" index={1} />
-                  <SocialIcon Icon={FaTwitter} href="https://twitter.com" label="Twitter" index={2} />
+                  <SocialIcon Icon={FaGithub} href="https://github.com/georgedevs" label="GitHub" index={0} />
+                  <SocialIcon Icon={FaLinkedin} href="https://ng.linkedin.com/in/ukoh-godwin-george-b72b5b32a" label="LinkedIn" index={1} />
+                  <SocialIcon Icon={FaInstagram} href="https://www.instagram.com/george_devss/" label="Instagram" index={2} />
                 </div>
 
                 <div className="px-4">
