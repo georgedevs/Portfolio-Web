@@ -11,7 +11,7 @@ import election3 from '../assets/projects/ELECTION 3.PNG';
 import election4 from '../assets/projects/ELECTION 4.PNG';
 import election5 from '../assets/projects/ELECTION 5.PNG';
 import election6 from '../assets/projects/ELECTION 6.PNG';
-import portfolio from '../assets/projects/portfolio.png';
+import portfolio from '../assets/projects/portfolio.PNG';
 
 const Projects = () => {
   const [selectedProjectGallery, setSelectedProjectGallery] = useState(null);
