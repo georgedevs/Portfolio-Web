@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { motion } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
@@ -35,7 +36,8 @@ const Experience = () => {
       description: [
         "Building custom websites for small businesses",
         "Managing client relationships and project timelines",
-        "Implementing responsive designs and modern UI/UX practices"
+        "Implementing responsive designs and modern UI/UX practices",
+        "Developed Empire Books Concept website using Next.js, Tailwind CSS, and Framer Motion"
       ],
       icon: Code,
       type: "freelance"

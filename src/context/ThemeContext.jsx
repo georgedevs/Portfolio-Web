@@ -61,7 +61,7 @@ export const themeConfig = {
 };
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
   const availableThemes = ['light', 'dark', 'blue', 'green','purple'];
 
   const toggleTheme = (newTheme) => {
@@ -76,7 +76,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
   }, []);
 

@@ -12,6 +12,7 @@ import election4 from '../assets/projects/ELECTION 4.PNG';
 import election5 from '../assets/projects/ELECTION 5.PNG';
 import election6 from '../assets/projects/ELECTION 6.PNG';
 import portfolio from '../assets/projects/portfolio.PNG';
+import empirebooks from '../assets/projects/empirebooks.png'
 
 const Projects = () => {
   const [selectedProjectGallery, setSelectedProjectGallery] = useState(null);
@@ -51,7 +52,15 @@ const Projects = () => {
       image: project1,
       github: null,
       live: "https://skill-nest-client.vercel.app/"
-    }
+    },
+    {
+      title: "Empire Books Concept Website",
+      description: "A modern and responsive website built for Empire Books Concept Ltd., a book publishing company founded in 2024. The project highlights their preschool, pre-primary, and primary textbooks while featuring upcoming publications. Developed using React for dynamic user interfaces and TailwindCSS for elegant, responsive styling, the website combines aesthetic design with seamless functionality, delivering an engaging and user-friendly experience.",
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+      image: empirebooks,
+      github: "https://github.com/georgedevs/EmpireBooks",
+      live: "https://empire-books.vercel.app/"
+    },
   ];
 
   const openGallery = (projectGallery) => {
@@ -197,10 +206,12 @@ const Projects = () => {
                 <div className="flex items-center space-x-4 pt-4">
                   {project.github && (
                     <motion.a
-                      href={project.github}
-                      className="flex items-center space-x-2 text-sm font-medium"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 text-sm font-medium"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     >
                       <Github className="w-4 h-4" />
                       <span className={`${themeConfig[theme].text}`}>Code</span>
@@ -208,10 +219,12 @@ const Projects = () => {
                   )}
                   {project.live && (
                     <motion.a
-                      href={project.live}
-                      className="flex items-center space-x-2 text-sm font-medium"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center space-x-2 text-sm font-medium"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     >
                       <ExternalLink className="w-4 h-4" />
                       <span className={`${themeConfig[theme].text}`}>Live Demo</span>
