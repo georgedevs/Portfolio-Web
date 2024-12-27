@@ -183,7 +183,7 @@ const ModernHero = () => {
             variants={mobileVariants.name}
             className="text-center"
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 font-departure">
               <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
                 {displayedName}
               </span>
