@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Download } from 'lucide-react';
+import { ArrowRight, Download, Edit2 } from 'lucide-react';
 import { useTheme, themeConfig } from '../context/ThemeContext';
+import Cookies from 'js-cookie';
 
 const RainBackground = () => {
   const [raindrops, setRaindrops] = useState([]);
@@ -60,19 +61,97 @@ const RainBackground = () => {
 
 const ModernHero = () => {
   const { theme } = useTheme();
+  const defaultName = "Ukoh-Godwin George";
   const [displayedName, setDisplayedName] = useState('');
+  const [editableName, setEditableName] = useState(defaultName);
+  const [isEditing, setIsEditing] = useState(false);
+  const [showEditHint, setShowEditHint] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const [displayedRole, setDisplayedRole] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedDescription, setDisplayedDescription] = useState('');
   const [isMobile, setIsMobile] = useState(false);
-  
+  const [isInitialized, setIsInitialized] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(true);
+
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  // Initialize the component
+  useEffect(() => {
+    // Clear any existing temporary name cookie on component mount
+    Cookies.remove('tempName');
+    setIsInitialized(true);
+  }, []);
+
+  // Handle the typing animation
+  useEffect(() => {
+    if (!isInitialized) return;
+
+    if (isMobile) {
+      setDisplayedName(defaultName);
+      setShowCursor(false);
+      return;
+    }
+
+    if (!isEditing) {
+      let index = 0;
+      setDisplayedName(''); // Reset displayed name before starting animation
+      
+      const typingInterval = setInterval(() => {
+        if (index <= editableName.length) {
+          setDisplayedName(editableName.slice(0, index));
+          index++;
+        } else {
+          setShowCursor(false);
+          clearInterval(typingInterval);
+        }
+      }, 100);
+
+      return () => clearInterval(typingInterval);
+    }
+  }, [isMobile, editableName, isEditing, isInitialized]);
+
+  const handleNameClick = () => {
+    if (!isEditing) {
+      setIsEditing(true);
+      setShowCursor(true);
+      setDisplayedName(editableName);
+    }
+  };
+
+  const handleNameChange = (e) => {
+    const newName = e.target.value;
+    setEditableName(newName);
+    setDisplayedName(newName);
+    Cookies.set('tempName', newName, { expires: 1 });
+  };
+
+  const handleNameBlur = () => {
+    setIsEditing(false);
+    setShowCursor(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.target.blur();
+    }
+  };
+
+
+  // Reset name on page load
+  useEffect(() => {
+    const savedName = Cookies.get('tempName');
+    if (savedName) {
+      setEditableName(savedName);
+    }
+    // Remove the cookie after getting its value
+    Cookies.remove('tempName');
   }, []);
 
   const scrollToContact = () => {
@@ -177,27 +256,46 @@ const ModernHero = () => {
         transition={{ duration: 0.8 }}
       >
         <div className="space-y-6 sm:space-y-8">
-          <motion.div
-            initial={isMobile ? "hidden" : { opacity: 0, y: 20 }}
-            animate={isMobile ? "visible" : { opacity: 1, y: 0 }}
-            variants={mobileVariants.name}
-            className="text-center"
+          <motion.div className="text-center relative"
+            onMouseEnter={() => setShowEditHint(true)}
+            onMouseLeave={() => setShowEditHint(false)}
           >
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 font-departure">
-              <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
-                {displayedName}
-              </span>
-              {showCursor && (
-                <motion.span
-                  animate={{ opacity: [0, 1, 0] }}
-                  transition={{ duration: 1, repeat: Infinity }}
-                  className="text-blue-500"
+            <div className="relative inline-block">
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editableName}
+                  onChange={handleNameChange}
+                  onBlur={handleNameBlur}
+                  onKeyDown={handleKeyDown}
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 font-departure bg-transparent border-b-2 border-blue-500 focus:outline-none text-center w-full"
+                  autoFocus
+                />
+              ) : (
+                <h1 
+                  onClick={handleNameClick}
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-3 font-departure cursor-pointer"
                 >
-                  |
-                </motion.span>
+                  <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text">
+                    {displayedName}
+                  </span>
+                </h1>
               )}
-            </h1>
-            
+              
+              {showEditHint && !isEditing && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-gray-800 text-white text-sm px-3 py-1 rounded-md whitespace-nowrap"
+                >
+                  <div className="flex items-center space-x-1">
+                    <Edit2 className="w-3 h-3" />
+                    <span>Click to edit name</span>
+                  </div>
+                  <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 rotate-45 w-2 h-2 bg-gray-800"></div>
+                </motion.div>
+              )}
+            </div>
             <motion.div 
               className="h-8 sm:h-10"
               initial={isMobile ? "hidden" : {}}
