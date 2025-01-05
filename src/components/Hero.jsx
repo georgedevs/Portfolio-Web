@@ -72,8 +72,6 @@ const ModernHero = () => {
   const [roleIndex, setRoleIndex] = useState(0);
   const [displayedDescription, setDisplayedDescription] = useState('');
   const [isMobile, setIsMobile] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(true);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -84,39 +82,37 @@ const ModernHero = () => {
 
   // Initialize the component
   useEffect(() => {
-    // Clear any existing temporary name cookie on component mount
+    // Clear any existing temporary name cookie
     Cookies.remove('tempName');
-    setIsInitialized(true);
-  }, []);
-
-  // Handle the typing animation
-  useEffect(() => {
-    if (!isInitialized) return;
-
+    
     if (isMobile) {
-      setDisplayedName(defaultName);
+      setDisplayedName(editableName);
       setShowCursor(false);
       return;
     }
 
     if (!isEditing) {
+      let timeoutId;
       let index = 0;
-      setDisplayedName(''); // Reset displayed name before starting animation
-      
-      const typingInterval = setInterval(() => {
+      const animateName = () => {
         if (index <= editableName.length) {
           setDisplayedName(editableName.slice(0, index));
           index++;
+          timeoutId = setTimeout(animateName, 100);
         } else {
           setShowCursor(false);
-          clearInterval(typingInterval);
         }
-      }, 100);
+      };
 
-      return () => clearInterval(typingInterval);
+      animateName();
+
+      return () => {
+        if (timeoutId) {
+          clearTimeout(timeoutId);
+        }
+      };
     }
-  }, [isMobile, editableName, isEditing, isInitialized]);
-
+  }, [isMobile, editableName, isEditing]);
   const handleNameClick = () => {
     if (!isEditing) {
       setIsEditing(true);
