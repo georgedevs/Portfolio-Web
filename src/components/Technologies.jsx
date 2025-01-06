@@ -3,15 +3,15 @@ import { motion } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import { 
   RiReactjsLine, 
-  RiNodejsLine,
-  RiGatsbyLine
+  RiNodejsLine
 } from 'react-icons/ri';
 import {
   SiTypescript,
   SiMongodb,
   SiExpress,
   SiRedis,
-  SiNextdotjs
+  SiNextdotjs,
+  SiPostgresql
 } from 'react-icons/si';
 
 const Technologies = () => {
@@ -61,10 +61,10 @@ const Technologies = () => {
       description: 'Web framework for Node.js'
     },
     { 
-      icon: RiGatsbyLine, 
-      name: 'Gatsby',
-      color: '#663399',
-      description: 'Static site generator'
+      icon: SiPostgresql, 
+      name: 'PostgreSQL',
+      color: '#336791',
+      description: 'Relational database'
     }
   ];
 
