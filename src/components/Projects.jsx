@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import ImageGallery from 'react-image-gallery';
@@ -12,7 +12,8 @@ import election4 from '../assets/projects/ELECTION 4.PNG';
 import election5 from '../assets/projects/ELECTION 5.PNG';
 import election6 from '../assets/projects/ELECTION 6.PNG';
 import portfolio from '../assets/projects/portfolio.PNG';
-import empirebooks from '../assets/projects/empirebooks.png'
+import empirebooks from '../assets/projects/empirebooks.png';
+import micounselor from '../assets/projects/micounselor.png'
 
 const Projects = () => {
   const [selectedProjectGallery, setSelectedProjectGallery] = useState(null);
@@ -61,6 +62,14 @@ const Projects = () => {
       github: "https://github.com/georgedevs/EmpireBooks",
       live: "https://empire-books.vercel.app/"
     },
+    {
+      title: "MiCounselor",
+      description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security. Built with a comprehensive tech stack including Next.js 15.1.0, the platform enables users to maintain anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, and comprehensive admin dashboards for managing the entire counseling ecosystem.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT"],
+      image: micounselor,
+      github: null,
+      live: "https://testing-george.vercel.app/",
+    }
   ];
 
   const openGallery = (projectGallery) => {
