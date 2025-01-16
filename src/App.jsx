@@ -9,6 +9,7 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Technologies from './components/Technologies';
 import ScrollToTop from './components/ScrollToTop';
+import CustomScrollbar from './components/CustomScrollbar';
 const AppContent = () => {
   const { getThemeStyle } = useTheme();
   
@@ -23,6 +24,7 @@ const AppContent = () => {
       <Contact />
       <Footer />
       <ScrollToTop/>
+      <CustomScrollbar/>
     </div>
   );
 };
