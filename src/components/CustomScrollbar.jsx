@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
+import  { useState, useEffect } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 
 const CustomScrollbar = () => {
   const [viewportHeight, setViewportHeight] = useState(0);
@@ -7,41 +7,43 @@ const CustomScrollbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
 
-  // Smooth scroll progress
-  const scrollProgress = useSpring(
-    useTransform(
-      scrollY,
-      [0, documentHeight - viewportHeight],
-      [0, 100]
-    ),
-    { damping: 15, stiffness: 100 }
+  // Calculate scroll percentage directly without spring animation
+  const scrollPercentage = useTransform(
+    scrollY,
+    [0, documentHeight - viewportHeight],
+    [0, 100],
+    { clamp: true } // This ensures the value stays between 0-100
   );
 
   // Update dimensions and check mobile
   useEffect(() => {
     const updateDimensions = () => {
-      setViewportHeight(window.innerHeight);
-      setDocumentHeight(document.documentElement.scrollHeight);
-      setIsMobile(window.innerWidth < 768); // 768px is typical tablet/mobile breakpoint
+      const vh = window.innerHeight;
+      const dh = document.documentElement.scrollHeight;
+      setViewportHeight(vh);
+      setDocumentHeight(dh);
+      setIsMobile(window.innerWidth < 768);
     };
 
+    // Initial update
     updateDimensions();
-    window.addEventListener('resize', updateDimensions);
-    window.addEventListener('load', updateDimensions);
+    
+    // Update on resize and content load
+    const resizeObserver = new ResizeObserver(updateDimensions);
+    resizeObserver.observe(document.documentElement);
 
-    return () => {
-      window.removeEventListener('resize', updateDimensions);
-      window.removeEventListener('load', updateDimensions);
-    };
+    return () => resizeObserver.disconnect();
   }, []);
 
   const [currentPercentage, setCurrentPercentage] = useState(0);
   
   useEffect(() => {
-    return scrollProgress.onChange(latest => {
-      setCurrentPercentage(Math.round(latest));
+    return scrollPercentage.onChange(latest => {
+      // Round to nearest integer and clamp between 0-100
+      const percentage = Math.max(0, Math.min(100, Math.round(latest)));
+      setCurrentPercentage(percentage);
     });
-  }, [scrollProgress]);
+  }, [scrollPercentage]);
 
   // Don't render on mobile
   if (isMobile) return null;
@@ -57,21 +59,15 @@ const CustomScrollbar = () => {
         </motion.div>
       </div>
 
-      {/* Scrollbar track - explicitly set to 60vh */}
+      {/* Scrollbar track */}
       <div className="relative h-[60vh] w-1 bg-gray-200/20 rounded-full overflow-hidden">
-        {/* Gradient fill container */}
-        <div className="absolute inset-0 w-full">
-          {/* Gradient background that fills from top to bottom */}
-          <motion.div 
-            className="absolute top-0 left-0 right-0 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"
-            style={{ 
-              height: `${currentPercentage}%`,
-              transition: 'height 0.1s ease-out'
-            }}
-          />
-        </div>
+        {/* Gradient fill */}
+        <motion.div 
+          className="absolute top-0 left-0 right-0 bg-gradient-to-b from-blue-500 via-purple-500 to-pink-500"
+          style={{ height: `${currentPercentage}%` }}
+        />
 
-        {/* Interactive hover effect */}
+        {/* Hover effect */}
         <motion.div 
           className="absolute inset-0 bg-white/20 rounded-full"
           initial={{ opacity: 0 }}
