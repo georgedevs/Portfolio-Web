@@ -1,8 +1,278 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Download, Edit2 } from 'lucide-react';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import Cookies from 'js-cookie';
+const BouncingHelloWorld = () => {
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [velocity, setVelocity] = useState({ x: 2, y: 2 });
+  const [color, setColor] = useState('text-blue-500');
+  const [isExploding, setIsExploding] = useState(false);
+  const [particles, setParticles] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
+  const containerRef = useRef(null);
+  const textRef = useRef(null);
+  const autoExplodeInterval = 30000;
+
+  const colors = [
+    'text-blue-500',
+    'text-purple-500',
+    'text-green-500',
+    'text-orange-500',
+    'text-pink-500',
+    'text-cyan-500',
+    'text-yellow-500'
+  ];
+
+  const handleMouseMove = (e) => {
+    if (!textRef.current) return;
+    
+    const textRect = textRef.current.getBoundingClientRect();
+    const textCenterX = textRect.left + textRect.width / 2;
+    const textCenterY = textRect.top + textRect.height / 2;
+    
+    // Calculate distance from text center
+    const distance = Math.sqrt(
+      Math.pow(e.clientX - textCenterX, 2) + 
+      Math.pow(e.clientY - textCenterY, 2)
+    );
+    
+    // 5cm is approximately 189 pixels (assuming 96 DPI)
+    const hoverRange = 189;
+    setIsHovered(distance < hoverRange);
+  };
+
+  const createParticles = (x, y) => {
+    const particleCount = 60; // Increased for more spectacular effect
+    const particles = [];
+    
+    // Create main explosion particles
+    for (let i = 0; i < particleCount; i++) {
+      const angle = (i / particleCount) * Math.PI * 2;
+      const velocity = 12 + Math.random() * 8; // More varied velocities
+      const size = Math.random() * 12 + 4; // Larger size variation
+      
+      particles.push({
+        id: `main-${i}`,
+        x,
+        y,
+        vx: Math.cos(angle) * velocity * (0.5 + Math.random()),
+        vy: Math.sin(angle) * velocity * (0.5 + Math.random()),
+        size,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 15,
+        type: 'gradient',
+        gradientType: Math.random() > 0.5 ? 'blue-purple' : 'purple-pink',
+        life: 1,
+        spinDir: Math.random() > 0.5 ? 1 : -1,
+      });
+    }
+  
+    // Add some glowing orb particles
+    for (let i = 0; i < particleCount/2; i++) {
+      const angle = (i / (particleCount/2)) * Math.PI * 2;
+      const velocity = 8 + Math.random() * 6;
+      
+      particles.push({
+        id: `glow-${i}`,
+        x,
+        y,
+        vx: Math.cos(angle) * velocity * (0.5 + Math.random()),
+        vy: Math.sin(angle) * velocity * (0.5 + Math.random()),
+        size: Math.random() * 6 + 2,
+        type: 'glow',
+        color: colors[Math.floor(Math.random() * colors.length)].replace('text-', 'bg-'),
+        life: 1,
+      });
+    }
+  
+    return particles;
+  };
+
+  const handleClick = (e) => {
+    e.stopPropagation();
+    if (!isExploding) {
+      const rect = textRef.current.getBoundingClientRect();
+      setIsExploding(true);
+      setParticles(createParticles(
+        e.clientX,
+        e.clientY
+      ));
+  
+      setTimeout(() => {
+        setPosition({ x: Math.random() * window.innerWidth * 0.8, y: Math.random() * window.innerHeight * 0.8 });
+        setVelocity({ x: 2, y: 2 });
+        setIsExploding(false);
+        setParticles([]);
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    const autoExplode = () => {
+      if (!isExploding && textRef.current) {
+        const rect = textRef.current.getBoundingClientRect();
+        setIsExploding(true);
+        setParticles(createParticles(
+          rect.left + rect.width / 2,
+          rect.top + rect.height / 2
+        ));
+  
+        setTimeout(() => {
+          setPosition({ x: Math.random() * window.innerWidth * 0.8, y: Math.random() * window.innerHeight * 0.8 });
+          setVelocity({ x: 2, y: 2 });
+          setIsExploding(false);
+          setParticles([]);
+        }, 1000);
+      }
+    };
+
+  const intervalId = setInterval(autoExplode, autoExplodeInterval);
+  return () => clearInterval(intervalId);
+}, [isExploding]);
+
+  useEffect(() => {
+    let animationFrameId;
+    
+    const animate = () => {
+      if (!containerRef.current || !textRef.current || isExploding) return;
+      
+      const container = containerRef.current.getBoundingClientRect();
+      const text = textRef.current.getBoundingClientRect();
+      
+      setPosition(prevPos => {
+        let newX = prevPos.x + velocity.x;
+        let newY = prevPos.y + velocity.y;
+        let newVelX = velocity.x;
+        let newVelY = velocity.y;
+        let hitEdge = false;
+
+        if (newX < 0 || newX + text.width > container.width) {
+          newVelX = -velocity.x;
+          hitEdge = true;
+        }
+
+        if (newY < 0 || newY + text.height > container.height) {
+          newVelY = -velocity.y;
+          hitEdge = true;
+        }
+
+        if (hitEdge) {
+          setVelocity({ x: newVelX, y: newVelY });
+          setColor(colors[Math.floor(Math.random() * colors.length)]);
+        }
+
+        return {
+          x: newX < 0 ? 0 : newX + text.width > container.width ? container.width - text.width : newX,
+          y: newY < 0 ? 0 : newY + text.height > container.height ? container.height - text.height : newY
+        };
+      });
+
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+    return () => cancelAnimationFrame(animationFrameId);
+  }, [velocity, isExploding]);
+
+  useEffect(() => {
+    if (!particles.length) return;
+  
+    const animateParticles = () => {
+      setParticles(prevParticles =>
+        prevParticles
+          .map(particle => ({
+            ...particle,
+            x: particle.x + particle.vx,
+            y: particle.y + particle.vy,
+            vy: particle.vy + (particle.type === 'glow' ? 0.1 : 0.2), // Different gravity for different particles
+            vx: particle.vx * 0.99, // Add some air resistance
+            rotation: particle.rotation + (particle.rotationSpeed || 0),
+            life: particle.life - (particle.type === 'glow' ? 0.015 : 0.02), // Different fade rates
+          }))
+          .filter(particle => particle.life > 0)
+      );
+    };
+  
+    const intervalId = setInterval(animateParticles, 16);
+    return () => clearInterval(intervalId);
+  }, [particles]);
+
+  useEffect(() => {
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="absolute inset-0 overflow-hidden z-0"
+      style={{ pointerEvents: 'none', zIndex: 20 }}
+    >
+      {!isExploding && (
+        <motion.div
+          ref={textRef}
+          className={`text-2xl font-bold font-mono ${color} transition-colors duration-300 cursor-pointer`}
+          style={{
+            position: 'absolute',
+            left: position.x,
+            top: position.y,
+            textShadow: '0 0 10px currentColor',
+            pointerEvents: 'auto',
+            opacity: 0.6 // Reduced opacity
+          }}
+          onClick={handleClick}
+          animate={{
+            scale: [1, 1.1, 1],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          whileHover={{ scale: 1.2, opacity: 1 }}
+        >
+          {"<HelloWorld />"}
+        </motion.div>
+      )}
+
+<AnimatePresence>
+  {particles.map(particle => (
+    <motion.div
+      key={particle.id}
+      initial={{ opacity: 1, scale: 1, rotate: particle.rotation || 0 }}
+      animate={{
+        opacity: particle.life,
+        scale: particle.life * (particle.type === 'glow' ? 2 : 1.5),
+        rotate: particle.type === 'gradient' ? 
+          particle.rotation + (particle.rotationSpeed * particle.spinDir * 360) : 
+          particle.rotation,
+      }}
+      exit={{ opacity: 0, scale: 0 }}
+      className={`absolute rounded-full ${
+        particle.type === 'glow' ? particle.color : ''
+      }`}
+      style={{
+        left: particle.x,
+        top: particle.y,
+        width: particle.size,
+        height: particle.size,
+        background: particle.type === 'gradient' ? 
+          particle.gradientType === 'blue-purple' ?
+            'linear-gradient(45deg, #3B82F6, #8B5CF6)' :
+            'linear-gradient(45deg, #8B5CF6, #EC4899)' :
+          undefined,
+        boxShadow: particle.type === 'glow' ? 
+          `0 0 ${particle.size * 2}px ${particle.color.replace('bg-', 'rgb-')}` :
+          `0 0 ${particle.size}px currentColor`,
+        transform: `rotate(${particle.rotation}deg)`,
+      }}
+    />
+  ))}
+</AnimatePresence>
+    </div>
+  );
+};
 
 const RainBackground = () => {
   const [raindrops, setRaindrops] = useState([]);
@@ -162,6 +432,7 @@ const ModernHero = () => {
   const roles = [
     'Full Stack Developer',
     'Software Engineer',
+    'Machine Learning Engineer',
     'Frontend Specialist',
     'Backend Developer',
   ];
@@ -244,9 +515,10 @@ const ModernHero = () => {
   return (
     <div className={`min-h-screen ${themeConfig[theme].primary} transition-colors duration-500 overflow-hidden relative flex items-center justify-center`}>
       <RainBackground />
+      <BouncingHelloWorld/>
       
       <motion.div 
-        className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-10"
+        className="w-full max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 relative z-30"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
