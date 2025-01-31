@@ -1,6 +1,7 @@
+import { useState } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
 import Navbar from './components/Navbar';
-import { useTheme} from './context/ThemeContext';
+import { useTheme } from './context/ThemeContext';
 import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
@@ -10,6 +11,8 @@ import Footer from './components/Footer';
 import Technologies from './components/Technologies';
 import ScrollToTop from './components/ScrollToTop';
 import CustomScrollbar from './components/CustomScrollbar';
+import CoolLoader from './components/CoolLoader'; 
+
 const AppContent = () => {
   const { getThemeStyle } = useTheme();
   
@@ -30,9 +33,19 @@ const AppContent = () => {
 };
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleLoaderComplete = () => {
+    setIsLoading(false);
+  };
+
   return (
     <ThemeProvider>
-      <AppContent />
+      {isLoading ? (
+        <CoolLoader onComplete={handleLoaderComplete} />
+      ) : (
+        <AppContent />
+      )}
     </ThemeProvider>
   );
 };

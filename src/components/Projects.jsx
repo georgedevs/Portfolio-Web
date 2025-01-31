@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import ImageGallery from 'react-image-gallery';
 import "react-image-gallery/styles/css/image-gallery.css";
-import { Github, ExternalLink, Eye, Instagram, X } from 'lucide-react';
+import { Github, ExternalLink, Eye, Instagram, X, ChevronRight, ChevronLeft } from 'lucide-react';
 import project1 from '../assets/projects/project1.png';
 import election from '../assets/projects/election.jpg';
 import election2 from '../assets/projects/ELECTION 2.PNG';
@@ -12,7 +12,7 @@ import election4 from '../assets/projects/ELECTION 4.PNG';
 import election5 from '../assets/projects/ELECTION 5.PNG';
 import election6 from '../assets/projects/ELECTION 6.PNG';
 import portfolio from '../assets/projects/portfolio.PNG';
-import empirebooks from '../assets/projects/empirebooks.png';
+import empire from '../assets/projects/empire.png';
 import micounselor from '../assets/projects/micounselor.png';
 
 const ModernProjects = () => {
@@ -21,6 +21,12 @@ const ModernProjects = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
+
+  //Project pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const projectsPerPage = 3;
+
+  
 
   const filters = ['all', 'fullstack', 'frontend',];
 
@@ -68,7 +74,7 @@ const ModernProjects = () => {
       title: "Empire Books Concept Website",
       description: "A modern and responsive website built for Empire Books Concept Ltd., a book publishing company founded in 2024. The project highlights their preschool, pre-primary, and primary textbooks while featuring upcoming publications. Developed using React for dynamic user interfaces and TailwindCSS for elegant, responsive styling, the website combines aesthetic design with seamless functionality.",
       tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
-      image: empirebooks,
+      image: empire,
       github: "https://github.com/georgedevs/EmpireBooks",
       live: "https://empire-books.vercel.app/",
       category: "frontend",
@@ -122,6 +128,28 @@ const ModernProjects = () => {
     ? projects
     : projects.filter(project => project.category === activeFilter);
 
+    const indexOfLastProject = currentPage * projectsPerPage;
+    const indexOfFirstProject = indexOfLastProject - projectsPerPage;
+    const currentProjects = filteredProjects.slice(indexOfFirstProject, indexOfLastProject);
+  
+    // Calculate total pages
+    const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
+  
+    // Pagination handlers
+    const nextPage = () => {
+      setCurrentPage(prev => Math.min(prev + 1, totalPages));
+    };
+  
+    const prevPage = () => {
+      setCurrentPage(prev => Math.max(prev - 1, 1));
+    };
+  
+    // Reset to first page when filter changes
+    useEffect(() => {
+      setCurrentPage(1);
+    }, [activeFilter]);
+  
+
   return (
     <div className={`py-24 ${themeConfig[theme].primary} transition-colors duration-500 min-h-screen relative overflow-hidden`}>
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -162,7 +190,7 @@ const ModernProjects = () => {
         </motion.div>
 
         <div className="space-y-32">
-          {filteredProjects.map((project, index) => (
+          {currentProjects.map((project, index) => (
             <motion.div
               key={project.title}
               initial="offscreen"
@@ -331,6 +359,53 @@ const ModernProjects = () => {
                 </motion.div>
               ))}
             </div>
+            {totalPages > 1 && (
+          <div className="flex justify-center items-center mt-16 space-x-4">
+            <motion.button
+              onClick={prevPage}
+              disabled={currentPage === 1}
+              className={`p-3 rounded-full transition-all duration-300 ${
+                currentPage === 1 
+                  ? 'opacity-30 cursor-not-allowed' 
+                  : 'hover:bg-blue-500/10 active:scale-95'
+              }`}
+              whileHover={{ scale: currentPage !== 1 ? 1.1 : 1 }}
+              whileTap={{ scale: currentPage !== 1 ? 0.9 : 1 }}
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </motion.button>
+
+            <div className="flex space-x-2">
+              {[...Array(totalPages)].map((_, pageIndex) => (
+                <motion.button
+                  key={pageIndex}
+                  onClick={() => setCurrentPage(pageIndex + 1)}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    currentPage === pageIndex + 1
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 scale-125'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.9 }}
+                />
+              ))}
+            </div>
+
+            <motion.button
+              onClick={nextPage}
+              disabled={currentPage === totalPages}
+              className={`p-3 rounded-full transition-all duration-300 ${
+                currentPage === totalPages 
+                  ? 'opacity-30 cursor-not-allowed' 
+                  : 'hover:bg-blue-500/10 active:scale-95'
+              }`}
+              whileHover={{ scale: currentPage !== totalPages ? 1.1 : 1 }}
+              whileTap={{ scale: currentPage !== totalPages ? 0.9 : 1 }}
+            >
+              <ChevronRight className="w-6 h-6" />
+            </motion.button>
+          </div>
+        )}
           </div>
     
           <AnimatePresence>

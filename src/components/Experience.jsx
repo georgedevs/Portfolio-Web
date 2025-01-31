@@ -63,7 +63,7 @@ const Experience = () => {
       icon: BookOpen,
       type: "education",
       technologies: ['Python', 'Java', 'C++', 'Data Structures', 'Algorithms'],
-      achievements: ['Dean\'s List', 'Computer Science Society Member'],
+      achievements: ['Computer Science Society Member', 'Best Student in Department (Current)'],
       color: "from-green-500 via-emerald-400 to-green-600"
     }
   ];
@@ -126,15 +126,19 @@ const Experience = () => {
                       {exp.type.charAt(0).toUpperCase() + exp.type.slice(1)}
                     </div>
 
-                    <h3 className={`text-2xl font-bold ${themeConfig[theme].text} mb-2 flex items-center`}>
-                      {exp.title}
-                      <motion.div
-                        animate={{ rotate: selectedExp === index ? 180 : 0 }}
-                        className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                      >
-                        <ChevronDown className="w-5 h-5" />
-                      </motion.div>
-                    </h3>
+                    <h3 className={`text-2xl font-bold ${themeConfig[theme].text} mb-1 flex items-center`}>
+  {exp.title}
+  <motion.div
+    animate={{ rotate: selectedExp === index ? 180 : 0 }}
+    className="ml-2 opacity-0 group-hover:opacity-100 transition-opacity"
+  >
+    <ChevronDown className="w-5 h-5" />
+  </motion.div>
+</h3>
+<p className={`${themeConfig[theme].text} opacity-80 text-lg font-medium mb-2`}>
+  {exp.company}
+</p>
+
 
                     <div className="flex flex-wrap items-center gap-4 mb-4">
                       <div className="flex items-center">

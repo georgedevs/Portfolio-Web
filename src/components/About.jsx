@@ -32,7 +32,7 @@ const FlippingCard = () => {
       content: (
         <div className="space-y-4">
           <p className={`text-lg leading-relaxed ${themeConfig[theme].text}`}>
-            It all began in <HighlightedText color="text-blue-500">9th Grade</HighlightedText> when the world of programming first captured my imagination. While most stories start with "I always knew I wanted to code," mine has a unique twist. My path started with a dream of 
+            It all began in <HighlightedText color="text-blue-500">9th Grade</HighlightedText> when the world of programming first captured my imagination. While most stories start with &quot;I always knew I wanted to code,&quot; mine has a unique twist. My path started with a dream of 
             <HighlightedText color="text-purple-500"> engineering</HighlightedText>, but the specific direction remained a mystery until I discovered my true passion:
             <HighlightedText color="text-green-500"> game development</HighlightedText>.
           </p>
@@ -53,14 +53,17 @@ const FlippingCard = () => {
             <HighlightedText color="text-green-500"> tech empire</HighlightedText>, each project fueled my growing passion.
           </p>
           <p className={`text-lg leading-relaxed ${themeConfig[theme].text}`}>
-            What sets me apart isn't just my technical skills—it's my
+            What sets me apart isn&apos;t just my technical skills—it&apos;s my
             <HighlightedText color="text-orange-500"> insatiable curiosity</HighlightedText> and
             <HighlightedText color="text-pink-500"> relentless drive</HighlightedText> to improve. I may not be the most experienced developer yet, but my
             <HighlightedText color="text-cyan-500"> hunger for knowledge</HighlightedText> and
             <HighlightedText color="text-yellow-500"> dedication to growth</HighlightedText> set me apart.
           </p>
           <p className={`text-lg leading-relaxed ${themeConfig[theme].text} font-medium italic`}>
-            "I am Ukoh-Godwin George, driven by passion, fueled by curiosity, and committed to excellence in every line of code I write."
+            &quot;I am Ukoh-Godwin George, driven by passion, fueled by curiosity, and committed to excellence in every line of code I write.&quot;
+          </p>
+          <p className={`text-lg leading-relaxed ${themeConfig[theme].text} font-extrabold`}>
+              REMEMBER THE NAME
           </p>
         </div>
       )
