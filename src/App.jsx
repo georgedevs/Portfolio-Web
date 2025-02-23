@@ -10,8 +10,8 @@ import Contact from './components/Contact';
 import Footer from './components/Footer';
 import Technologies from './components/Technologies';
 import ScrollToTop from './components/ScrollToTop';
-import CustomScrollbar from './components/CustomScrollbar';
-import CoolLoader from './components/CoolLoader'; 
+import CustomScrollbar from './components/CustomScrollbar'; 
+import ModernLoader from './components/CoolLoader';
 
 const AppContent = () => {
   const { getThemeStyle } = useTheme();
@@ -42,7 +42,7 @@ const App = () => {
   return (
     <ThemeProvider>
       {isLoading ? (
-        <CoolLoader onComplete={handleLoaderComplete} />
+        <ModernLoader onComplete={handleLoaderComplete} />
       ) : (
         <AppContent />
       )}

@@ -251,23 +251,23 @@ const ModernAbout = () => {
             {/* Main Bio Card */}
             <FlippingCard />
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-3 gap-4">
-              {stats.map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className={`p-4 rounded-xl ${themeConfig[theme].accent} backdrop-blur-lg text-center group hover:scale-105 transition-transform duration-300`}
-                >
-                  <stat.icon className={`w-6 h-6 mx-auto mb-2 ${themeConfig[theme].text} group-hover:text-blue-500 transition-colors duration-300`} />
-                  <div className={`text-2xl font-bold ${themeConfig[theme].text} mb-1`}>{stat.value}</div>
-                  <div className={`text-sm ${themeConfig[theme].text} opacity-80`}>{stat.label}</div>
-                </motion.div>
-              ))}
-            </div>
+         {/* Stats Grid */}
+<div className="grid grid-cols-3 gap-2 sm:gap-4">
+  {stats.map((stat, index) => (
+    <motion.div
+      key={stat.label}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: index * 0.1 }}
+      className={`p-2 sm:p-4 rounded-xl ${themeConfig[theme].accent} backdrop-blur-lg text-center group hover:scale-105 transition-transform duration-300`}
+    >
+      <stat.icon className={`w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2 ${themeConfig[theme].text} group-hover:text-blue-500 transition-colors duration-300`} />
+      <div className={`text-lg sm:text-2xl font-bold ${themeConfig[theme].text} mb-0.5 sm:mb-1`}>{stat.value}</div>
+      <div className={`text-[10px] leading-tight sm:text-sm ${themeConfig[theme].text} opacity-80`}>{stat.label}</div>
+    </motion.div>
+  ))}
+</div>
           </motion.div>
 
           {/* Right Column - Skills */}
