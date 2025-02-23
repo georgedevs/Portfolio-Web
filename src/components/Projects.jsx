@@ -15,7 +15,7 @@ import portfolio from '../assets/projects/portfolio.PNG';
 import empire from '../assets/projects/empire.png';
 import micounselor from '../assets/projects/micounselor.png';
 import project1Mobile from '../assets/projects/project1-mobile.png';
-import portfolioMobile from '../assets/projects/portfolio-mobile.PNG';
+import portfolioMobile from '../assets/projects/portfolio-mobile.png';
 import empireMobile from '../assets/projects/empire-mobile.png';
 import micounselorMobile from '../assets/projects/micounselor-mobile.png';
 import { useRef } from 'react';
