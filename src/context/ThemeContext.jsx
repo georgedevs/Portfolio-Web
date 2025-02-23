@@ -4,6 +4,7 @@ const ThemeContext = createContext();
 
 export const themeConfig = {
   light: {
+    // Keep light theme as is - it works well
     primary: 'bg-white',
     secondary: 'bg-gray-50',
     text: 'text-gray-900',
@@ -15,6 +16,7 @@ export const themeConfig = {
     buttonOutline: 'border-gray-200 text-gray-900 hover:bg-gray-50',
   },
   dark: {
+    // Keep dark theme as is - it works well
     primary: 'bg-black',
     secondary: 'bg-neutral-950',
     text: 'text-white',
@@ -26,38 +28,41 @@ export const themeConfig = {
     buttonOutline: 'border-neutral-800 text-white hover:bg-neutral-900',
   },
   blue: {
-    primary: 'bg-blue-950',
-    secondary: 'bg-blue-900',
-    text: 'text-blue-50',
-    textMuted: 'text-blue-200',
-    accent: 'bg-blue-900',
-    border: 'border-blue-800',
-    shadow: 'shadow-blue-950/60',
-    button: 'bg-blue-50 text-blue-950 hover:bg-blue-100',
-    buttonOutline: 'border-blue-800 text-blue-50 hover:bg-blue-900',
+    // Deep Ocean theme
+    primary: 'bg-[#0A192F]', // Deeper, richer blue
+    secondary: 'bg-[#112240]', // Slightly lighter navy
+    text: 'text-[#E6F1FF]', // Soft blue-white
+    textMuted: 'text-[#8892B0]', // Muted blue-gray
+    accent: 'bg-[#1E2D4D]', // Medium navy
+    border: 'border-[#233554]', // Border navy
+    shadow: 'shadow-[#0A192F]/60',
+    button: 'bg-[#64FFDA] text-[#0A192F] hover:bg-[#64FFDA]/90', // Cyan accent
+    buttonOutline: 'border-[#64FFDA] text-[#64FFDA] hover:bg-[#64FFDA]/10',
   },
   green: {
-    primary: 'bg-green-950',
-    secondary: 'bg-green-900',
-    text: 'text-green-50',
-    textMuted: 'text-green-200',
-    accent: 'bg-green-900',
-    border: 'border-green-800',
-    shadow: 'shadow-green-950/60',
-    button: 'bg-green-50 text-green-950 hover:bg-green-100',
-    buttonOutline: 'border-green-800 text-green-50 hover:bg-green-900',
+    // Forest theme
+    primary: 'bg-[#1A2F1C]', // Deep forest green
+    secondary: 'bg-[#2A3E2B]', // Medium forest
+    text: 'text-[#E8FFF0]', // Soft green-white
+    textMuted: 'text-[#9DB5A3]', // Muted sage
+    accent: 'bg-[#2F442F]', // Rich forest
+    border: 'border-[#3D5C3E]', // Forest border
+    shadow: 'shadow-[#1A2F1C]/60',
+    button: 'bg-[#7CFF8E] text-[#1A2F1C] hover:bg-[#7CFF8E]/90', // Vibrant green
+    buttonOutline: 'border-[#7CFF8E] text-[#7CFF8E] hover:bg-[#7CFF8E]/10',
   },
   purple: {
-    primary: 'bg-purple-950',
-    secondary: 'bg-purple-900',
-    text: 'text-purple-50',
-    textMuted: 'text-purple-200',
-    accent: 'bg-purple-900',
-    border: 'border-purple-800',
-    shadow: 'shadow-purple-950/60',
-    button: 'bg-purple-50 text-purple-950 hover:bg-purple-100',
-    buttonOutline: 'border-purple-800 text-purple-50 hover:bg-purple-900',
-  },
+    // Royal Purple theme
+    primary: 'bg-[#13111C]', // Deep purple-black
+    secondary: 'bg-[#1F1B2E]', // Rich purple
+    text: 'text-[#F2E9FF]', // Soft purple-white
+    textMuted: 'text-[#9D91BB]', // Muted lavender
+    accent: 'bg-[#2A2440]', // Medium purple
+    border: 'border-[#382F5A]', // Purple border
+    shadow: 'shadow-[#13111C]/60',
+    button: 'bg-[#B69DFF] text-[#13111C] hover:bg-[#B69DFF]/90', // Bright purple
+    buttonOutline: 'border-[#B69DFF] text-[#B69DFF] hover:bg-[#B69DFF]/10',
+  }
 };
 
 export const ThemeProvider = ({ children }) => {

@@ -14,6 +14,11 @@ import election6 from '../assets/projects/ELECTION 6.PNG';
 import portfolio from '../assets/projects/portfolio.PNG';
 import empire from '../assets/projects/empire.png';
 import micounselor from '../assets/projects/micounselor.png';
+import project1Mobile from '../assets/projects/project1-mobile.png';
+import portfolioMobile from '../assets/projects/portfolio-mobile.PNG';
+import empireMobile from '../assets/projects/empire-mobile.png';
+import micounselorMobile from '../assets/projects/micounselor-mobile.png';
+import { useRef } from 'react';
 
 const ModernProjects = () => {
   const { theme } = useTheme();
@@ -21,6 +26,7 @@ const ModernProjects = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [hoveredProject, setHoveredProject] = useState(null);
   const [activeFilter, setActiveFilter] = useState('all');
+  const projectsRef = useRef(null)
 
   //Project pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +42,7 @@ const ModernProjects = () => {
       description: "A comprehensive digital voting platform designed to modernize and secure the electoral process. The system provides a user-friendly interface for voters, administrators, and election officials, implementing robust authentication, real-time vote tracking, and transparent result management. Key features include secure login, candidate registration, voting mechanism, and detailed election analytics.",
       tags: ["PHP", "MySQL", "Bootstrap", "XAMPP", "HTML", "CSS", "JavaScript"],
       image: election,
+      mobileImage: null,
       github: "https://github.com/georgedevs/E-Voting-System",
       live: null,
       category: "fullstack",
@@ -55,6 +62,7 @@ const ModernProjects = () => {
       description: "A sophisticated, responsive personal portfolio website meticulously crafted to showcase professional projects, skills, and creative capabilities. Leveraging modern web technologies, the site features smooth, engaging animations, multiple color mode support, and an intuitive, interactive design that provides a comprehensive overview of professional achievements and technical expertise.",
       tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
       image: portfolio,
+      mobileImage: portfolioMobile,
       github: "https://github.com/georgedevs/Portfolio",
       live: "https://ukohgodwingeorge-portfolio.vercel.app/",
       category: "frontend",
@@ -65,6 +73,7 @@ const ModernProjects = () => {
       description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. The platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. Designed to bridge the gap between learners and quality educational content across various disciplines.",
       tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "React", "Express"],
       image: project1,
+      mobileImage: project1Mobile,
       github: null,
       live: "https://skill-nest-client.vercel.app/",
       category: "fullstack",
@@ -75,6 +84,7 @@ const ModernProjects = () => {
       description: "A modern and responsive website built for Empire Books Concept Ltd., a book publishing company founded in 2024. The project highlights their preschool, pre-primary, and primary textbooks while featuring upcoming publications. Developed using React for dynamic user interfaces and TailwindCSS for elegant, responsive styling, the website combines aesthetic design with seamless functionality.",
       tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
       image: empire,
+      mobileImage: empireMobile,
       github: "https://github.com/georgedevs/EmpireBooks",
       live: "https://empire-books.vercel.app/",
       category: "frontend",
@@ -85,12 +95,37 @@ const ModernProjects = () => {
       description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security. Built with a comprehensive tech stack including Next.js 15.1.0, the platform enables users to maintain anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, and comprehensive admin dashboards.",
       tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT"],
       image: micounselor,
+      mobileImage: micounselorMobile,
       github: null,
       live: "https://testing-george.vercel.app/",
       category: "fullstack",
       number: "05"
     }
+    
   ];
+
+  const MobileMockup = ({ image }) => (
+    <div className="relative w-full max-w-[280px] mx-auto">
+      {/* Phone frame */}
+      <div className="relative rounded-[3rem] overflow-hidden border-8 border-gray-900 aspect-[9/19.5] shadow-2xl">
+        {/* Dynamic notch */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-36 bg-gray-900 rounded-b-3xl z-20" />
+        
+        {/* Screen content */}
+        <div className="absolute inset-0 overflow-hidden">
+          <img 
+            src={image} 
+            alt="Mobile view" 
+            className="w-full h-full object-cover"
+          />
+        </div>
+      </div>
+  
+      {/* Reflection effect */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
+    </div>
+  );
+
 
   useEffect(() => {
     const handleEscapeKey = (e) => {
@@ -135,13 +170,31 @@ const ModernProjects = () => {
     // Calculate total pages
     const totalPages = Math.ceil(filteredProjects.length / projectsPerPage);
   
+
+    const handlePageChange = (newPage) => {
+      setCurrentPage(newPage);
+      
+      // Add a small delay to ensure content updates before scrolling
+      setTimeout(() => {
+        if (projectsRef.current) {
+          projectsRef.current.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      }, 100);
+    };
     // Pagination handlers
     const nextPage = () => {
-      setCurrentPage(prev => Math.min(prev + 1, totalPages));
+      if (currentPage < totalPages) {
+        handlePageChange(currentPage + 1);
+      }
     };
   
     const prevPage = () => {
-      setCurrentPage(prev => Math.max(prev - 1, 1));
+      if (currentPage > 1) {
+        handlePageChange(currentPage - 1);
+      }
     };
   
     // Reset to first page when filter changes
@@ -149,6 +202,151 @@ const ModernProjects = () => {
       setCurrentPage(1);
     }, [activeFilter]);
   
+
+    const ProjectImage = ({ project, onGalleryOpen, onInstagramOpen }) => {
+      const [isMobile, setIsMobile] = useState(false);
+    
+      useEffect(() => {
+        const checkMobile = () => setIsMobile(window.innerWidth < 768);
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+      }, []);
+    
+      if (isMobile && project.mobileImage) {
+        return (
+          <div className="w-full space-y-8">
+            {/* Mobile Mockup Container */}
+            <div className="relative w-full flex justify-center">
+              <motion.div
+                className="relative w-[280px]"
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+              >
+                {/* Phone frame with adjusted height */}
+                <div className="relative rounded-[2.5rem] overflow-hidden border-[12px] border-gray-900 shadow-2xl bg-gray-900">
+                  {/* Notch */}
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-32 bg-black rounded-b-3xl z-20" />
+                  
+                  {/* Screen content */}
+                  <motion.img 
+                    src={project.mobileImage} 
+                    alt="Mobile view"
+                    className="w-full object-contain rounded-xl"
+                  />
+                </div>
+    
+                {/* Floating action buttons */}
+                <motion.div
+                  className="absolute -right-4 top-1/2 -translate-y-1/2 flex flex-col gap-3"
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.2 }}
+                >
+                  {project.github && (
+                    <motion.a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Github className="w-5 h-5" />
+                    </motion.a>
+                  )}
+                  {project.live && (
+                    <motion.a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-2 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <ExternalLink className="w-5 h-5" />
+                    </motion.a>
+                  )}
+                  {project.galleryImages && (
+                    <motion.button
+                      onClick={() => onGalleryOpen(project.galleryImages)}
+                      className="p-2 rounded-full bg-gradient-to-r from-pink-500 to-red-500 text-white shadow-lg"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Eye className="w-5 h-5" />
+                    </motion.button>
+                  )}
+                </motion.div>
+    
+                {/* Reflection effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 rounded-[2.5rem] pointer-events-none" />
+              </motion.div>
+            </div>
+          </div>
+        );
+      }
+    
+      // Desktop view remains unchanged
+      return (
+        <motion.div 
+          className="w-full lg:w-3/5 relative"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="relative overflow-hidden rounded-2xl aspect-video group">
+            <motion.img
+              src={project.image}
+              alt={project.title}
+              className="w-full h-full object-cover transition-transform duration-500"
+              whileHover={{ scale: 1.1 }}
+            />
+            
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300
+                flex items-end justify-center p-8"
+            >
+              <div className="flex gap-4">
+                {project.github && (
+                  <motion.a
+                    href={project.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Github className="w-6 h-6 text-white" />
+                  </motion.a>
+                )}
+                {project.live && (
+                  <motion.a
+                    href={project.live}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <ExternalLink className="w-6 h-6 text-white" />
+                  </motion.a>
+                )}
+                {project.galleryImages && (
+                  <motion.button
+                    onClick={() => onGalleryOpen(project.galleryImages)}
+                    className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <Eye className="w-6 h-6 text-white" />
+                  </motion.button>
+                )}
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
+      );
+    };
 
   return (
     <div className={`py-24 ${themeConfig[theme].primary} transition-colors duration-500 min-h-screen relative overflow-hidden`}>
@@ -189,8 +387,8 @@ const ModernProjects = () => {
           </div>
         </motion.div>
 
-        <div className="space-y-32">
-          {currentProjects.map((project, index) => (
+        <div ref={projectsRef} className="space-y-32" key={currentPage}>
+        {currentProjects.map((project, index) => (
             <motion.div
               key={project.title}
               initial="offscreen"
@@ -229,71 +427,11 @@ const ModernProjects = () => {
                   {project.number}
                 </motion.div>
 
-                <motion.div 
-                  className="w-full lg:w-3/5 relative"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <div className="relative overflow-hidden rounded-2xl aspect-video group">
-                    <motion.img
-                      src={project.image}
-                      alt={project.title}
-                      className="w-full h-full object-cover transition-transform duration-500"
-                      whileHover={{ scale: 1.1 }}
-                    />
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300
-                        flex items-end justify-center p-8"
-                    >
-                      <div className="flex gap-4">
-                        {project.github && (
-                          <motion.a
-                            href={project.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Github className="w-6 h-6 text-white" />
-                          </motion.a>
-                        )}
-                        {project.live && (
-                          <motion.a
-                            href={project.live}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <ExternalLink className="w-6 h-6 text-white" />
-                          </motion.a>
-                        )}
-                        {project.galleryImages && (
-                          <motion.button
-                            onClick={() => openGallery(project.galleryImages)}
-                            className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Eye className="w-6 h-6 text-white" />
-                          </motion.button>
-                        )}
-                        {project.instagramPost && (
-                          <motion.button
-                            onClick={() => openInstagramPost(project.instagramPost)}
-                            className="p-3 rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 transition-all"
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                          >
-                            <Instagram className="w-6 h-6 text-white" />
-                          </motion.button>
-                        )}
-                      </div>
-                    </motion.div>
-                  </div>
-                </motion.div>
+                <ProjectImage 
+  project={project}
+  onGalleryOpen={openGallery}
+  onInstagramOpen={openInstagramPost}
+/>
 
                 <motion.div 
                   className="w-full lg:w-2/5 space-y-6"
@@ -379,7 +517,7 @@ const ModernProjects = () => {
               {[...Array(totalPages)].map((_, pageIndex) => (
                 <motion.button
                   key={pageIndex}
-                  onClick={() => setCurrentPage(pageIndex + 1)}
+                  onClick={() => handlePageChange(pageIndex + 1)}
                   className={`w-3 h-3 rounded-full transition-all duration-300 ${
                     currentPage === pageIndex + 1
                       ? 'bg-gradient-to-r from-blue-500 to-purple-500 scale-125'
