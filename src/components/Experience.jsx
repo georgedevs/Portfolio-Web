@@ -6,6 +6,7 @@ import {
   ChevronRight, 
   ChevronDown, Terminal, Award, 
 } from 'lucide-react';
+import { RainBackground } from './RainBackground';
 
 const Experience = () => {
   const { theme } = useTheme();
@@ -109,6 +110,7 @@ const Experience = () => {
         {/* Timeline Connector */}
         {!isCompact && (
           <>
+          <RainBackground/>
             <div className="absolute -left-[42px] top-1/2 w-8 h-[2px] bg-gradient-to-r from-transparent via-blue-500 to-transparent" />
             <motion.div 
               className={`absolute -left-[50px] top-1/2 -translate-y-1/2 w-4 h-4 rounded-full

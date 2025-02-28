@@ -18,7 +18,12 @@ import project1Mobile from '../assets/projects/project1-mobile.png';
 import portfolioMobile from '../assets/projects/portfolio-mobile.png';
 import empireMobile from '../assets/projects/empire-mobile.png';
 import micounselorMobile from '../assets/projects/micounselor-mobile.png';
+import miibaby from '../assets/projects/miibaby.png';
+import miibabyMobile from '../assets/projects/miibabyMobile.png';
+import spin from '../assets/projects/spin.png';
+import spinMobile from '../assets/projects/spinMobile.png';
 import { useRef } from 'react';
+import { RainBackground } from './RainBackground';
 
 const ModernProjects = () => {
   const { theme } = useTheme();
@@ -70,8 +75,8 @@ const ModernProjects = () => {
     },
     {
       title: "SkillNest",
-      description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. The platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. Designed to bridge the gap between learners and quality educational content across various disciplines.",
-      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "React", "Express"],
+      description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. Built with a large-scale codebase implementing advanced state management techniques, the platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. The system includes comprehensive admin dashboards, course management tools, and student analytics, designed to bridge the gap between learners and quality educational content across various disciplines.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "React", "Express", "JWT", "Stripe", "Socket.io"],
       image: project1,
       mobileImage: project1Mobile,
       github: null,
@@ -92,14 +97,36 @@ const ModernProjects = () => {
     },
     {
       title: "MiCounselor",
-      description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security. Built with a comprehensive tech stack including Next.js 15.1.0, the platform enables users to maintain anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, and comprehensive admin dashboards.",
-      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT"],
+      description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security while supporting over 500+ users. Built with a comprehensive tech stack, the platform enables users to maintain complete anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, custom email/SMS notifications, and comprehensive admin dashboards for counselors and administrators, all built with advanced state management for this large-scale codebase.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT", "Redux"],
       image: micounselor,
       mobileImage: micounselorMobile,
       github: null,
       live: "https://testing-george.vercel.app/",
       category: "fullstack",
       number: "05"
+    },
+    {
+      title: "Spin-The-Wheel Promotion",
+      description: "A sophisticated promotional spin-the-wheel application featuring modern animations, responsive UI design, and complex backend logic for prize distribution. The application implements detailed probability calculations for winning, allocations, and spin limits. Developed external APIs for ticket creation and validation that seamlessly integrate with the client's existing website, tracking all activity through a comprehensive admin dashboard. Engineered for high performance, successfully handling 256,000 users with minimal latency while maintaining data integrity across transactions.",
+      tags: ["Next.js", "TypeScript", "React", "PostgreSQL", "Prisma", "Supabase", "Framer Motion", "Tailwind CSS", "REST API", "Authentication"],
+      image: spin,
+      mobileImage: spinMobile,
+      github: null,
+      live: "https://wheelspin.vercel.app/",
+      category: "fullstack",
+      number: "06"
+    },
+    {
+      title: "Valentine's Day Experience",
+      description: "A charming, interactive Valentine's Day website created for a client, featuring elegant animations and engaging user interactions. The site showcases modern UI design with animated love quotes, floating hearts, and interactive elements that create a memorable user experience. Built with a focus on fluid animations and responsive design, the website provides an immersive digital Valentine's experience with customizable love messages, background music integration, and animated particles for a truly delightful experience.",
+      tags: ["Next.js", "React", "TypeScript", "Framer Motion", "Tailwind CSS", "Animation"],
+      image: miibaby,
+      mobileImage: miibabyMobile,
+      github: null,
+      live: "https://miibaby.vercel.app/",
+      category: "frontend",
+      number: "07"
     }
     
   ];
@@ -294,6 +321,7 @@ const ModernProjects = () => {
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.3 }}
         >
+              <RainBackground/>
           <div className="relative overflow-hidden rounded-2xl aspect-video group">
             <motion.img
               src={project.image}

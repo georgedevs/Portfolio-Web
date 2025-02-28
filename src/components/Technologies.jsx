@@ -8,6 +8,7 @@ import {
   SiPostgresql, SiPytorch, SiTensorflow, SiPython
 } from 'react-icons/si';
 import { GiArtificialIntelligence } from 'react-icons/gi';
+import { RainBackground } from './RainBackground';
 
 const Technologies = () => {
   const { theme } = useTheme();
@@ -145,6 +146,7 @@ const Technologies = () => {
 
   return (
     <div className={`py-20 ${themeConfig[theme].primary} transition-colors duration-500 relative overflow-hidden`}>
+          <RainBackground/>
       <motion.div 
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10"
         initial={{ opacity: 0 }}

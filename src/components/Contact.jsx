@@ -18,6 +18,7 @@ import {
   Rocket,
   Code
 } from 'lucide-react';
+import { RainBackground } from './RainBackground';
 
 const ModernContact = () => {
   const { theme } = useTheme();
@@ -83,6 +84,7 @@ const ModernContact = () => {
 
   return (
     <div id="contact" className={`py-24 ${themeConfig[theme].primary} transition-colors duration-500 relative overflow-hidden`}>
+          <RainBackground/>
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
