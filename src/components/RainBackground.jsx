@@ -10,15 +10,16 @@ export const RainBackground = () => {
     useEffect(() => {
       const generateRaindrops = () => {
         const isMobile = window.innerWidth < 768;
-        const raindropCount = isMobile ? 25 : 50; // Reduce raindrops on mobile
+        // Significantly reduced raindrop count
+        const raindropCount = isMobile ? 10 : 20;
         const newRaindrops = Array.from({ length: raindropCount }).map((_, index) => ({
           id: index,
           x: Math.random() * 100,
           y: -20,
           size: Math.random() * 1.5 + 0.5,
           delay: Math.random() * 2,
-          duration: Math.random() * 1.5 + 1,
-          opacity: Math.random() * 0.3 + 0.2,
+          duration: Math.random() * 1.5 + 1.5, // Slightly slower for better effect
+          opacity: Math.random() * 0.2 + 0.1, // More subtle opacity
           blur: Math.random() * 0.5
         }));
         setRaindrops(newRaindrops);
@@ -34,7 +35,7 @@ export const RainBackground = () => {
         {raindrops.map((raindrop) => (
           <motion.div
             key={raindrop.id}
-            className="absolute bg-gradient-to-b from-gray-400/50 to-gray-300/30"
+            className="absolute bg-gradient-to-b from-gray-400/40 to-gray-300/20" // More subtle colors
             style={{
               width: `${raindrop.size}px`,
               height: `${raindrop.size * 15}px`,
