@@ -43,6 +43,52 @@ const ModernProjects = () => {
 
   const projects = [
     {
+      title: "SkillNest",
+      description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. Built with a large-scale codebase implementing advanced state management techniques, the platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. The system includes comprehensive admin dashboards, course management tools, and student analytics, designed to bridge the gap between learners and quality educational content across various disciplines.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "React", "Express", "JWT", "Stripe", "Socket.io"],
+      image: project1,
+      mobileImage: project1Mobile,
+      github: null,
+      live: "https://skill-nest-client.vercel.app/",
+      category: "fullstack",
+      number: "01"
+    },
+
+    {
+      title: "MiCounselor",
+      description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security while supporting over 500+ users. Built with a comprehensive tech stack, the platform enables users to maintain complete anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, custom email/SMS notifications, and comprehensive admin dashboards for counselors and administrators, all built with advanced state management for this large-scale codebase.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT", "Redux"],
+      image: micounselor,
+      mobileImage: micounselorMobile,
+      github: null,
+      live: "https://testing-george.vercel.app/",
+      category: "fullstack",
+      number: "02"
+    },
+    {
+      title: "Personal Portfolio",
+      description: "A sophisticated, responsive personal portfolio website meticulously crafted to showcase professional projects, skills, and creative capabilities. Leveraging modern web technologies, the site features smooth, engaging animations, multiple color mode support, and an intuitive, interactive design that provides a comprehensive overview of professional achievements and technical expertise.",
+      tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
+      image: portfolio,
+      mobileImage: portfolioMobile,
+      github: "https://github.com/georgedevs/Portfolio",
+      live: "https://ukohgodwingeorge-portfolio.vercel.app/",
+      category: "frontend",
+      number: "03"
+    },
+ 
+    {
+      title: "Empire Books Concept Website",
+      description: "A modern and responsive website built for Empire Books Concept Ltd., a book publishing company founded in 2024. The project highlights their preschool, pre-primary, and primary textbooks while featuring upcoming publications. Developed using React for dynamic user interfaces and TailwindCSS for elegant, responsive styling, the website combines aesthetic design with seamless functionality.",
+      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
+      image: empire,
+      mobileImage: empireMobile,
+      github: "https://github.com/georgedevs/EmpireBooks",
+      live: "https://empire-books.vercel.app/",
+      category: "frontend",
+      number: "04"
+    },
+    {
       title: "E-Voting System",
       description: "A comprehensive digital voting platform designed to modernize and secure the electoral process. The system provides a user-friendly interface for voters, administrators, and election officials, implementing robust authentication, real-time vote tracking, and transparent result management. Key features include secure login, candidate registration, voting mechanism, and detailed election analytics.",
       tags: ["PHP", "MySQL", "Bootstrap", "XAMPP", "HTML", "CSS", "JavaScript"],
@@ -60,52 +106,9 @@ const ModernProjects = () => {
         { original: election6, thumbnail: election6 },
       ],
       instagramPost: 'DCO5boliTIB',
-      number: "01"
+      number: "06"
     },
-    {
-      title: "Personal Portfolio",
-      description: "A sophisticated, responsive personal portfolio website meticulously crafted to showcase professional projects, skills, and creative capabilities. Leveraging modern web technologies, the site features smooth, engaging animations, multiple color mode support, and an intuitive, interactive design that provides a comprehensive overview of professional achievements and technical expertise.",
-      tags: ["React", "Vite", "Tailwind CSS", "Framer Motion"],
-      image: portfolio,
-      mobileImage: portfolioMobile,
-      github: "https://github.com/georgedevs/Portfolio",
-      live: "https://ukohgodwingeorge-portfolio.vercel.app/",
-      category: "frontend",
-      number: "02"
-    },
-    {
-      title: "SkillNest",
-      description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. Built with a large-scale codebase implementing advanced state management techniques, the platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. The system includes comprehensive admin dashboards, course management tools, and student analytics, designed to bridge the gap between learners and quality educational content across various disciplines.",
-      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "React", "Express", "JWT", "Stripe", "Socket.io"],
-      image: project1,
-      mobileImage: project1Mobile,
-      github: null,
-      live: "https://skill-nest-client.vercel.app/",
-      category: "fullstack",
-      number: "03"
-    },
-    {
-      title: "Empire Books Concept Website",
-      description: "A modern and responsive website built for Empire Books Concept Ltd., a book publishing company founded in 2024. The project highlights their preschool, pre-primary, and primary textbooks while featuring upcoming publications. Developed using React for dynamic user interfaces and TailwindCSS for elegant, responsive styling, the website combines aesthetic design with seamless functionality.",
-      tags: ["React", "Tailwind CSS", "Framer Motion", "Responsive Design"],
-      image: empire,
-      mobileImage: empireMobile,
-      github: "https://github.com/georgedevs/EmpireBooks",
-      live: "https://empire-books.vercel.app/",
-      category: "frontend",
-      number: "04"
-    },
-    {
-      title: "MiCounselor",
-      description: "An innovative anonymous marriage counseling platform that prioritizes user privacy and security while supporting over 500+ users. Built with a comprehensive tech stack, the platform enables users to maintain complete anonymity while connecting with counselors through secure video calls. Features include sophisticated booking systems, real-time communication via Daily.CO API, secure authentication, custom email/SMS notifications, and comprehensive admin dashboards for counselors and administrators, all built with advanced state management for this large-scale codebase.",
-      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Daily.CO", "Socket.io", "Tailwind CSS", "JWT", "Redux"],
-      image: micounselor,
-      mobileImage: micounselorMobile,
-      github: null,
-      live: "https://testing-george.vercel.app/",
-      category: "fullstack",
-      number: "05"
-    },
+  
     {
       title: "Spin-The-Wheel Promotion",
       description: "A sophisticated promotional spin-the-wheel application featuring modern animations, responsive UI design, and complex backend logic for prize distribution. The application implements detailed probability calculations for winning, allocations, and spin limits. Developed external APIs for ticket creation and validation that seamlessly integrate with the client's existing website, tracking all activity through a comprehensive admin dashboard. Engineered for high performance, successfully handling 256,000 users with minimal latency while maintaining data integrity across transactions.",
@@ -115,7 +118,7 @@ const ModernProjects = () => {
       github: null,
       live: "https://wheelspin.vercel.app/",
       category: "fullstack",
-      number: "06"
+      number: "07"
     },
     {
       title: "Valentine's Day Experience",
@@ -126,8 +129,9 @@ const ModernProjects = () => {
       github: null,
       live: "https://miibaby.vercel.app/",
       category: "frontend",
-      number: "07"
-    }
+      number: "08"
+    },
+
     
   ];
 
