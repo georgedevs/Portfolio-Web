@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { ArrowRight, Download, Edit2 } from 'lucide-react';
 import { useTheme, themeConfig } from '../context/ThemeContext';

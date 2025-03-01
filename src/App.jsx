@@ -11,7 +11,9 @@ import Footer from './components/Footer';
 import Technologies from './components/Technologies';
 import ScrollToTop from './components/ScrollToTop';
 import CustomScrollbar from './components/CustomScrollbar'; 
-import ModernLoader from './components/CoolLoader';
+import EnhancedLoader from './components/EnhancedLoader';
+import PersonalitySection from './components/PersonalitySection';
+import ThemeIndicator from './components/ThemeIndicator';
 
 const AppContent = () => {
   const { getThemeStyle } = useTheme();
@@ -24,10 +26,12 @@ const AppContent = () => {
       <Experience />
       <Technologies />
       <Projects />
+      <PersonalitySection />
       <Contact />
       <Footer />
       <ScrollToTop/>
       <CustomScrollbar/>
+      <ThemeIndicator />
     </div>
   );
 };
@@ -42,7 +46,7 @@ const App = () => {
   return (
     <ThemeProvider>
       {isLoading ? (
-        <ModernLoader onComplete={handleLoaderComplete} />
+        <EnhancedLoader onComplete={handleLoaderComplete} />
       ) : (
         <AppContent />
       )}
