@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import { 
@@ -13,8 +13,11 @@ const PersonalitySection = () => {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState('hobbies');
   const [currentQuote, setCurrentQuote] = useState(0);
+  const [showScrollButtons, setShowScrollButtons] = useState(false);
+  const tabsContainerRef = useRef(null);
   
-  // Categories and items to reveal your personality
+  
+  // Categories and items to reveal  personality
   const tabs = [
     { id: 'hobbies', label: 'Hobbies & Interests', icon: Heart },
     { id: 'story', label: 'My Journey', icon: Book },
@@ -26,6 +29,33 @@ const PersonalitySection = () => {
   const ColorText = ({ children, color }) => (
     <span className={`font-medium ${color}`}>{children}</span>
   );
+  
+  // Function to check if scrolling buttons should be shown
+  const checkScrollable = () => {
+    if (tabsContainerRef.current) {
+      const { scrollWidth, clientWidth } = tabsContainerRef.current;
+      setShowScrollButtons(scrollWidth > clientWidth);
+    }
+  };
+
+  // Check on mount and window resize
+  useEffect(() => {
+    checkScrollable();
+    window.addEventListener('resize', checkScrollable);
+    return () => window.removeEventListener('resize', checkScrollable);
+  }, []);
+
+  // Scroll tabs left/right
+  const scrollTabs = (direction) => {
+    if (tabsContainerRef.current) {
+      const scrollAmount = 150;
+      const currentScroll = tabsContainerRef.current.scrollLeft;
+      tabsContainerRef.current.scrollTo({
+        left: direction === 'right' ? currentScroll + scrollAmount : currentScroll - scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
   
   // Content for each tab
   const content = {
@@ -140,6 +170,11 @@ const PersonalitySection = () => {
           icon: Coffee, 
           fact: "I've written my best code after my third cup of coffee", 
           color: "from-purple-600 to-indigo-400"
+        },
+        { 
+          icon: Dumbbell, 
+          fact: "I love to gym - nothing clears my mind better than a good workout session", 
+          color: "from-orange-600 to-red-400"
         },
         { 
           icon: Code, 
@@ -379,25 +414,60 @@ const PersonalitySection = () => {
           </p>
         </motion.div>
         
-        {/* Tab Navigation */}
-        <div className="mb-10 overflow-x-auto no-scrollbar">
-          <div className="flex space-x-4 justify-center">
-            {tabs.map((tab) => (
+        {/* Tab Navigation - Mobile Responsive */}
+        <div className="mb-10 relative">
+          <div className="flex items-center">
+            {/* Left scroll button - only visible on mobile when needed */}
+            {showScrollButtons && (
               <motion.button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id)}
-                className={`px-4 py-3 rounded-xl flex items-center space-x-2 whitespace-nowrap transition-all ${
-                  activeTab === tab.id 
-                    ? 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-medium' 
-                    : `${themeConfig[theme].accent} hover:bg-blue-500/10`
-                }`}
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                onClick={() => scrollTabs('left')}
+                className="md:hidden absolute left-0 z-10 p-1 rounded-full bg-blue-500/20 backdrop-blur-sm"
+                whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
               >
-                <tab.icon className="w-4 h-4" />
-                <span>{tab.label}</span>
+                <ChevronLeft className="w-5 h-5" />
               </motion.button>
-            ))}
+            )}
+            
+            {/* Tabs container with horizontal scroll on mobile */}
+            <div 
+              ref={tabsContainerRef}
+              className="flex-1 overflow-x-auto scrollbar-hide px-6 md:px-0 scroll-smooth"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              <div className="flex space-x-4 justify-start md:justify-center min-w-max">
+                {tabs.map((tab) => (
+                  <motion.button
+                    key={tab.id}
+                    onClick={() => setActiveTab(tab.id)}
+                    className={`px-4 py-3 rounded-xl flex items-center space-x-2 whitespace-nowrap transition-all ${
+                      activeTab === tab.id 
+                        ? 'bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white font-medium' 
+                        : `${themeConfig[theme].accent} hover:bg-blue-500/10`
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <tab.icon className="w-4 h-4" />
+                    <span>{tab.label}</span>
+                  </motion.button>
+                ))}
+              </div>
+            </div>
+            
+            {/* Right scroll button - only visible on mobile when needed */}
+            {showScrollButtons && (
+              <motion.button
+                onClick={() => scrollTabs('right')}
+                className="md:hidden absolute right-0 z-10 p-1 rounded-full bg-blue-500/20 backdrop-blur-sm"
+                whileTap={{ scale: 0.9 }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            )}
           </div>
         </div>
         
