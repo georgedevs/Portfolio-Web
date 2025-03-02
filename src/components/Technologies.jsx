@@ -276,7 +276,7 @@ const Technologies = () => {
             animate={{ opacity: 0.8 }}
             transition={{ delay: 0.4 }}
           >
-            My toolkit of technologies that I've mastered to build modern, scalable applications.
+            My toolkit of technologies that I&apos;ve mastered to build modern, scalable applications.
           </motion.p>
         </motion.div>
 
@@ -537,7 +537,7 @@ const Technologies = () => {
                       
                       <div className="mt-4 p-3 rounded-lg" style={{ backgroundColor: selectedTech.backgroundColor }}>
                         <p className={`${themeConfig[theme].text} text-sm`}>
-                          I've been working with {selectedTech.name} for {selectedTech.experience}, 
+                          I&apos;ve been working with {selectedTech.name} for {selectedTech.experience}, 
                           using it in {selectedTech.projects} professional projects.
                         </p>
                       </div>

@@ -415,8 +415,8 @@ const EnhancedContact = () => {
                 </div>
                 
                 <p className={`text-lg md:text-xl text-center ${themeConfig[theme].text} opacity-90 max-w-3xl mx-auto`}>
-                  Let's collaborate to bring your vision to life. From concept to completion, 
-                  I'm here to help transform your ideas into reality.
+                  Let&apos;s collaborate to bring your vision to life. From concept to completion, 
+                  I&apos;m here to help transform your ideas into reality.
                 </p>
 
                 {/* Feature Icons - Redesigned with more information */}
@@ -649,7 +649,7 @@ const EnhancedContact = () => {
                         <CheckCircle2 className="w-5 h-5" />
                         <div className="flex flex-col">
                           <span className="font-medium">Message sent successfully!</span>
-                          <span className="text-sm opacity-80">I'll get back to you soon.</span>
+                          <span className="text-sm opacity-80">I&apos;ll get back to you soon.</span>
                         </div>
                       </>
                     ) : (

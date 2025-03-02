@@ -12,9 +12,9 @@ const EnhancedLoader = ({ onComplete }) => {
   const [factIndex, setFactIndex] = useState(0);
   const [showLoader, setShowLoader] = useState(true);
   
-  // Maximum loading time in milliseconds (12 seconds)
-  const MAX_LOADING_TIME = 12000;
-  const LOADING_INCREMENT = 0.65; // Slightly faster progress
+  // Maximum loading time in milliseconds (reduced from 12 seconds to 6 seconds)
+  const MAX_LOADING_TIME = 6000;
+  const LOADING_INCREMENT = 1.5; // Faster progress
 
   // Skills to display during loading
   const skills = [
@@ -52,7 +52,7 @@ const EnhancedLoader = ({ onComplete }) => {
         setTimeout(() => {
           setShowLoader(false);
           onComplete();
-        }, 500);
+        }, 300); // Faster transition out
       }
     }, MAX_LOADING_TIME);
 
@@ -60,8 +60,8 @@ const EnhancedLoader = ({ onComplete }) => {
   }, [onComplete, showLoader]);
 
   useEffect(() => {
-    // Generate abstract background blobs
-    const newBlobs = Array.from({ length: 3 }).map((_, i) => ({
+    // Generate abstract background blobs - REDUCED quantity
+    const newBlobs = Array.from({ length: 2 }).map((_, i) => ({
       id: i,
       scale: Math.random() * 0.5 + 0.5,
       x: Math.random() * 100,
@@ -70,9 +70,9 @@ const EnhancedLoader = ({ onComplete }) => {
     }));
     setBlobs(newBlobs);
 
-    // Generate grid points for background
+    // Generate grid points for background - REDUCED quantity with increased spacing
     const points = [];
-    const spacing = 50;
+    const spacing = 80; // Increased from 50 for fewer points
     for (let x = 0; x < window.innerWidth; x += spacing) {
       for (let y = 0; y < window.innerHeight; y += spacing) {
         points.push({
@@ -92,7 +92,7 @@ const EnhancedLoader = ({ onComplete }) => {
           setTimeout(() => {
             setShowLoader(false);
             onComplete();
-          }, 500);
+          }, 300); // Faster completion
           return 100;
         }
         // Progress increases more at the beginning, slows in the middle, then speeds up at the end
@@ -107,12 +107,12 @@ const EnhancedLoader = ({ onComplete }) => {
     // Phase animation - more time on meaningful phases
     const phaseInterval = setInterval(() => {
       setCurrentPhase(prev => (prev + 1) % phases.length);
-    }, 3000);
+    }, 1500); // Faster phases
 
     // Fun facts rotation
     const factInterval = setInterval(() => {
       setFactIndex(prev => (prev + 1) % funFacts.length);
-    }, 4000);
+    }, 2000); // Faster rotation
 
     return () => {
       clearInterval(progressInterval);
@@ -135,7 +135,7 @@ const EnhancedLoader = ({ onComplete }) => {
         <motion.div
           className={`fixed inset-0 ${themeConfig[theme].primary} flex flex-col items-center justify-center z-50 overflow-hidden`}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.3 }} // Faster exit
           aria-live="polite"
           aria-busy="true"
           role="progressbar"
@@ -143,7 +143,7 @@ const EnhancedLoader = ({ onComplete }) => {
           aria-valuemin="0"
           aria-valuemax="100"
         >
-          {/* Abstract animated background */}
+          {/* Abstract animated background - SIMPLIFIED */}
           {blobs.map(blob => (
             <motion.div
               key={blob.id}
@@ -153,7 +153,8 @@ const EnhancedLoader = ({ onComplete }) => {
                 height: '40vw',
                 left: `${blob.x}%`,
                 top: `${blob.y}%`,
-                scale: blob.scale
+                scale: blob.scale,
+                willChange: 'transform'
               }}
               animate={{
                 x: [-20, 20, -20],
@@ -168,9 +169,9 @@ const EnhancedLoader = ({ onComplete }) => {
             />
           ))}
 
-          {/* Grid background */}
+          {/* Grid background - SIMPLIFIED, rendered fewer points */}
           <div className="absolute inset-0 overflow-hidden">
-            {gridPoints.map((point, i) => (
+            {gridPoints.slice(0, 50).map((point, i) => ( // Limit points rendered
               <motion.div
                 key={i}
                 className="absolute w-1 h-1 rounded-full bg-gray-500/10"
@@ -185,8 +186,8 @@ const EnhancedLoader = ({ onComplete }) => {
             ))}
           </div>
 
-          <div className="relative z-10 space-y-12 px-4 max-w-md">
-            {/* Main loading interface */}
+          <div className="relative z-10 space-y-8 px-4 max-w-md">
+            {/* Main loading interface - SIMPLIFIED */}
             <div className="relative">
               <AnimatePresence mode="wait">
                 <motion.div
@@ -204,52 +205,35 @@ const EnhancedLoader = ({ onComplete }) => {
                   <motion.div
                     className="p-8 rounded-2xl backdrop-blur-xl relative overflow-hidden"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.03)'
+                      background: 'rgba(255, 255, 255, 0.03)',
+                      willChange: 'transform'
                     }}
                   >
-                    {/* Animated border */}
-                    <motion.div
-                      className="absolute inset-0 rounded-2xl"
-                      animate={{
-                        background: [
-                          "linear-gradient(0deg, transparent 0%, #3B82F6 50%, transparent 100%)",
-                          "linear-gradient(90deg, transparent 0%, #8B5CF6 50%, transparent 100%)",
-                          "linear-gradient(180deg, transparent 0%, #EC4899 50%, transparent 100%)",
-                          "linear-gradient(270deg, transparent 0%, #3B82F6 50%, transparent 100%)"
-                        ]
-                      }}
-                      transition={{ duration: 4, repeat: Infinity }}
-                      style={{ opacity: 0.2 }}
-                    />
-
                     <CurrentIcon className="w-16 h-16 text-white relative z-10" />
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
             </div>
 
-            {/* Loading text and progress */}
-            <div className="space-y-6">
+            {/* Loading text and progress - SIMPLIFIED */}
+            <div className="space-y-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentPhase}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
-                  className="text-center space-y-2"
+                  className="text-center"
                 >
                   <motion.h2
                     className="text-2xl font-bold bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-transparent bg-clip-text"
                   >
                     {phases[currentPhase].text}
                   </motion.h2>
-                  <motion.p className="text-sm text-white/70">
-                    {phases[currentPhase].description}
-                  </motion.p>
                 </motion.div>
               </AnimatePresence>
 
-              {/* Progress indicators */}
+              {/* Progress indicators - SIMPLIFIED */}
               <div className="space-y-4">
                 {/* Sophisticated progress bar */}
                 <div className="relative">
@@ -258,15 +242,8 @@ const EnhancedLoader = ({ onComplete }) => {
                       className="h-full rounded-full"
                       style={{
                         width: `${progress}%`,
-                        background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)'
-                      }}
-                      animate={{
-                        backgroundPosition: ['0% 0%', '100% 0%'],
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "linear"
+                        background: 'linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899)',
+                        willChange: 'transform'
                       }}
                     />
                   </div>
@@ -277,9 +254,9 @@ const EnhancedLoader = ({ onComplete }) => {
                   </div>
                 </div>
                 
-                {/* Skills showcase */}
+                {/* Skills showcase - SIMPLIFIED */}
                 <div className="flex flex-wrap justify-center gap-3 mt-4">
-                  {skills.map((skill, index) => (
+                  {skills.slice(0, 4).map((skill, index) => ( // Show fewer skills
                     <motion.div
                       key={skill.name}
                       initial={{ opacity: 0, scale: 0 }}
@@ -300,20 +277,6 @@ const EnhancedLoader = ({ onComplete }) => {
                   ))}
                 </div>
               </div>
-              
-              {/* Fun facts */}
-              <AnimatePresence mode="wait">
-                <motion.div
-                  key={factIndex}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  className="flex items-center justify-center space-x-2 text-sm text-white/80 mt-6 px-3 py-2 rounded-lg bg-white/5"
-                >
-                  <Smile className="w-4 h-4 text-yellow-400" />
-                  <span>{funFacts[factIndex]}</span>
-                </motion.div>
-              </AnimatePresence>
               
               {/* Skip button */}
               <motion.button

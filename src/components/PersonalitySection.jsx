@@ -3,8 +3,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import { 
   Coffee, Music, Book, Gamepad, 
-  Film, Camera, Code, Lightbulb, 
-  Heart, MessageCircle, ChevronRight, ChevronLeft,
+  Film, Code, Lightbulb, 
+  Heart, ChevronRight, ChevronLeft,
   Dumbbell, Umbrella, Laugh
 } from 'lucide-react';
 import { FaFutbol, FaBasketballBall } from 'react-icons/fa';
@@ -94,16 +94,16 @@ const PersonalitySection = () => {
       content: (
         <div className="space-y-4">
           <p>
-            I stumbled into coding during the <ColorText color="text-purple-500">COVID lockdown</ColorText> out of sheer boredom. My first app was a calculator that was so buggy it would sometimes give you <ColorText color="text-red-500">7 + 7 = 77</ColorText>. But hey, that's technically string concatenation, right? 😅
+            I stumbled into coding during the <ColorText color="text-purple-500">COVID lockdown</ColorText> out of sheer boredom. My first app was a calculator that was so buggy it would sometimes give you <ColorText color="text-red-500">7 + 7 = 77</ColorText>. But hey, that&apos;s technically string concatenation, right? 😅
           </p>
           <p>
-            What started as a <ColorText color="text-blue-500">way to kill time</ColorText> quickly became an obsession. I went from "maybe I'll learn HTML" to "let me rebuild Netflix from scratch" in about two weeks (spoiler alert: it didn't go well).
+            What started as a <ColorText color="text-blue-500">way to kill time</ColorText> quickly became an obsession. I went from &quot;maybe I&apos;ll learn HTML&quot; to &quot;let me rebuild Netflix from scratch&quot; in about two weeks (spoiler alert: it didn&apos;t go well).
           </p>
           <p>
-            The real <ColorText color="text-green-500">game-changer</ColorText> was when I built my school's e-voting system in 2022. Nothing validates your skills quite like seeing real humans using something you created without immediately breaking it!
+            The real <ColorText color="text-green-500">game-changer</ColorText> was when I built my school&apos;s e-voting system in 2022. Nothing validates your skills quite like seeing real humans using something you created without immediately breaking it!
           </p>
           <p>
-            Through countless <ColorText color="text-amber-500">late nights</ColorText>, <ColorText color="text-pink-500">frustrating bugs</ColorText>, and the occasional keyboard-slamming moment, I've found my passion. Every "{`console.log('why isn't this working??')`}" has been worth it!
+            Through countless <ColorText color="text-amber-500">late nights</ColorText>, <ColorText color="text-pink-500">frustrating bugs</ColorText>, and the occasional keyboard-slamming moment, I&apos;ve found my passion. Every &quot;{`console.log('why isn't this working??')`}&quot; has been worth it!
           </p>
         </div>
       ),
@@ -287,7 +287,7 @@ const PersonalitySection = () => {
                   >
                     <div className={`absolute inset-0 bg-gradient-to-r ${content.inspiration.quotes[currentQuote].color} opacity-10`} />
                     <div className="relative text-center space-y-4 py-4">
-                      <div className="text-6xl opacity-20">"</div>
+                      <div className="text-6xl opacity-20"></div>
                       <p className={`text-xl font-medium ${themeConfig[theme].text}`}>
                         {content.inspiration.quotes[currentQuote].text}
                       </p>
@@ -338,7 +338,7 @@ const PersonalitySection = () => {
               className={`p-5 rounded-xl ${themeConfig[theme].accent} backdrop-blur-lg`}
             >
               <h3 className={`text-lg font-semibold ${themeConfig[theme].text} mb-3`}>
-                I'm Inspired By
+                I&apos;m Inspired By
               </h3>
               <ul className="space-y-2">
                 {content.inspiration.people.map((person, index) => (
@@ -410,7 +410,7 @@ const PersonalitySection = () => {
           </h2>
           <div className="h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
           <p className={`max-w-2xl mx-auto mt-4 ${themeConfig[theme].text} opacity-80`}>
-            Get to know the person behind the code. Here's a glimpse into who I am beyond my technical skills.
+            Get to know the person behind the code. Here&apos;s a glimpse into who I am beyond my technical skills.
           </p>
         </motion.div>
         

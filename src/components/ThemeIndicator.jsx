@@ -71,7 +71,7 @@ const ThemeIndicator = () => {
                 >
                   <div className="relative">
                     <p className={`text-sm ${themeConfig[theme].text} font-medium`}>
-                      Don't like this theme?
+                      Don&apos;t like this theme?
                     </p>
                     <p className={`text-xs ${themeConfig[theme].text} opacity-80`}>
                       Click the palette icon in the navbar to change!
