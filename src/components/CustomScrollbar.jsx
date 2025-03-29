@@ -38,18 +38,22 @@ const CustomScrollbar = () => {
   const [currentPercentage, setCurrentPercentage] = useState(0);
   
   useEffect(() => {
-    return scrollPercentage.onChange(latest => {
+    // Updated to use the new .on("change", callback) method instead of .onChange(callback)
+    const unsubscribe = scrollPercentage.on("change", latest => {
       // Round to nearest integer and clamp between 0-100
       const percentage = Math.max(0, Math.min(100, Math.round(latest)));
       setCurrentPercentage(percentage);
     });
+    
+    // Return the unsubscribe function for cleanup
+    return unsubscribe;
   }, [scrollPercentage]);
 
   // Don't render on mobile
   if (isMobile) return null;
 
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 hidden md:flex">
+    <div className="fixed right-4 top-1/2 -translate-y-1/2 flex items-center gap-2 md:flex">
       {/* Percentage display */}
       <div className="relative min-w-[40px] text-center">
         <motion.div

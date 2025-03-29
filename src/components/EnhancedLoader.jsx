@@ -129,6 +129,14 @@ const EnhancedLoader = ({ onComplete }) => {
   // Skip loader if it's already completed
   if (!showLoader) return null;
 
+  // Determine text color based on theme
+  const textColor = theme === 'light' ? 'text-gray-800' : 'text-white';
+  const textColorMuted = theme === 'light' ? 'text-gray-600' : 'text-white/70';
+  const iconColor = theme === 'light' ? 'text-gray-800' : 'text-white';
+  const gridPointColor = theme === 'light' ? 'bg-gray-400/20' : 'bg-gray-500/10';
+  const progressTrackColor = theme === 'light' ? 'bg-gray-300/50' : 'bg-gray-700/30';
+  const skillBgColor = theme === 'light' ? 'bg-gray-200/80' : 'bg-white/10';
+
   return (
     <AnimatePresence>
       {showLoader && (
@@ -174,7 +182,7 @@ const EnhancedLoader = ({ onComplete }) => {
             {gridPoints.slice(0, 50).map((point, i) => ( // Limit points rendered
               <motion.div
                 key={i}
-                className="absolute w-1 h-1 rounded-full bg-gray-500/10"
+                className={`absolute w-1 h-1 rounded-full ${gridPointColor}`}
                 style={{ left: point.x, top: point.y }}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 0.5, scale: 1 }}
@@ -205,11 +213,11 @@ const EnhancedLoader = ({ onComplete }) => {
                   <motion.div
                     className="p-8 rounded-2xl backdrop-blur-xl relative overflow-hidden"
                     style={{
-                      background: 'rgba(255, 255, 255, 0.03)',
+                      background: theme === 'light' ? 'rgba(0, 0, 0, 0.03)' : 'rgba(255, 255, 255, 0.03)',
                       willChange: 'transform'
                     }}
                   >
-                    <CurrentIcon className="w-16 h-16 text-white relative z-10" />
+                    <CurrentIcon className={`w-16 h-16 ${iconColor} relative z-10`} />
                   </motion.div>
                 </motion.div>
               </AnimatePresence>
@@ -237,7 +245,7 @@ const EnhancedLoader = ({ onComplete }) => {
               <div className="space-y-4">
                 {/* Sophisticated progress bar */}
                 <div className="relative">
-                  <div className="h-1.5 w-64 bg-gray-700/30 rounded-full overflow-hidden">
+                  <div className={`h-1.5 w-64 ${progressTrackColor} rounded-full overflow-hidden`}>
                     <motion.div
                       className="h-full rounded-full"
                       style={{
@@ -249,8 +257,8 @@ const EnhancedLoader = ({ onComplete }) => {
                   </div>
                   
                   <div className="mt-2 flex justify-between items-center">
-                    <span className="text-xs text-white/70">Loading portfolio...</span>
-                    <span className="text-xs font-medium text-white">{formattedProgress}%</span>
+                    <span className={`text-xs ${textColorMuted}`}>Loading portfolio...</span>
+                    <span className={`text-xs font-medium ${textColor}`}>{formattedProgress}%</span>
                   </div>
                 </div>
                 
@@ -266,13 +274,13 @@ const EnhancedLoader = ({ onComplete }) => {
                       }}
                       className="flex flex-col items-center"
                     >
-                      <div className="p-2 rounded-full bg-white/10">
+                      <div className={`p-2 rounded-full ${skillBgColor}`}>
                         <skill.icon 
                           className="w-5 h-5" 
                           style={{ color: skill.color }}
                         />
                       </div>
-                      <span className="text-xs mt-1 text-white/80">{skill.name}</span>
+                      <span className={`text-xs mt-1 ${textColor}`}>{skill.name}</span>
                     </motion.div>
                   ))}
                 </div>
@@ -287,7 +295,7 @@ const EnhancedLoader = ({ onComplete }) => {
                     onComplete();
                   }, 300);
                 }}
-                className="text-sm text-white/50 hover:text-white/80 transition-colors mt-4"
+                className={`text-sm ${textColorMuted} hover:${textColor} transition-colors mt-4`}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

@@ -14,6 +14,7 @@ import CustomScrollbar from './components/CustomScrollbar';
 import EnhancedLoader from './components/EnhancedLoader';
 import PersonalitySection from './components/PersonalitySection';
 import ThemeIndicator from './components/ThemeIndicator';
+import AIChatIntegration from './components/AIChatIntegration';
 
 const AppContent = () => {
   const { getThemeStyle } = useTheme();
@@ -32,6 +33,7 @@ const AppContent = () => {
       <ScrollToTop/>
       <CustomScrollbar/>
       <ThemeIndicator />
+      <AIChatIntegration />
     </div>
   );
 };
