@@ -116,7 +116,7 @@ const OpenAIChatInterface = ({ isOpen, closeChat }) => {
       const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
         method: "POST",
         headers: {
-          "Authorization": "Bearer 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",
+          "Authorization": `Bearer ${import.meta.env.VITE_OPENROUTER_API_KEY || ''}`,
           "HTTP-Referer": "https://ukohgodwingeorge-portfolio.vercel.app/",
           "X-Title": "George's Portfolio AI",
           "Content-Type": "application/json"
