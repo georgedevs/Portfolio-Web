@@ -375,69 +375,9 @@ const EnhancedContact = () => {
           
           <div className="h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
           
-          {/* Project Call-to-Action Section - Enhanced with better visuals */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="max-w-4xl mx-auto mt-12"
-          >
-            <div className={`${themeConfig[theme].accent} p-8 md:p-10 rounded-2xl backdrop-blur-xl relative group overflow-hidden shadow-lg`}>
-              {/* Animated gradient background with improved animation */}
-              <motion.div
-                className="absolute inset-0 opacity-30"
-                animate={{
-                  background: [
-                    'linear-gradient(45deg, rgba(59,130,246,0.3), transparent)',
-                    'linear-gradient(135deg, rgba(139,92,246,0.3), transparent)',
-                    'linear-gradient(225deg, rgba(236,72,153,0.3), transparent)',
-                    'linear-gradient(315deg, rgba(59,130,246,0.3), transparent)'
-                  ]
-                }}
-                transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-              />
-              
-              {/* Improved content layout */}
-              <div className="relative space-y-6">
-                <div className="flex items-center justify-center space-x-2">
-                  <motion.div
-                    animate={{ 
-                      rotate: [0, 360],
-                    }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                  >
-                    <Sparkles className="w-8 h-8 text-blue-500" />
-                  </motion.div>
-                  <h3 className={`text-2xl md:text-3xl font-bold ${themeConfig[theme].text}`}>
-                    Have a Project in Mind?
-                  </h3>
-                </div>
-                
-                <p className={`text-lg md:text-xl text-center ${themeConfig[theme].text} opacity-90 max-w-3xl mx-auto`}>
-                  Let&apos;s collaborate to bring your vision to life. From concept to completion, 
-                  I&apos;m here to help transform your ideas into reality.
-                </p>
-
-                {/* Feature Icons - Redesigned with more information */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-                  {projectFeatures.map((feature) => (
-                    <motion.div
-                      key={feature.title}
-                      whileHover={{ y: -5, scale: 1.03 }}
-                      className={`p-5 rounded-xl bg-gradient-to-r ${feature.gradient} bg-opacity-5 flex flex-col items-center space-y-3 backdrop-blur-sm`}
-                    >
-                      <feature.icon className="w-6 h-6 text-white/70" />
-                      <div className="text-center">
-                        <h4 className="text-sm font-semibold text-white/90 mb-1">{feature.title}</h4>
-                        <p className="text-xs text-white/70 leading-tight">{feature.description}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+             
+       
+     
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">

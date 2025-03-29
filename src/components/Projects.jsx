@@ -22,6 +22,8 @@ import miibaby from '../assets/projects/miibaby.png';
 import miibabyMobile from '../assets/projects/miibabyMobile.png';
 import spin from '../assets/projects/spin.png';
 import spinMobile from '../assets/projects/spinMobile.png';
+import projectrix from '../assets/projects/projectrix.png';
+import projectrixMobile from '../assets/projects/projectrixMobile.png';
 import { useRef } from 'react';
 import { RainBackground } from './RainBackground';
 
@@ -43,6 +45,17 @@ const ModernProjects = () => {
 
   const projects = [
     {
+      title: "Projectrix",
+      description: "A comprehensive collaborative development platform that connects developers with meaningful projects and team members. Projectrix leverages AI to generate personalized project ideas based on technology preferences, complexity level, and team size requirements. The platform features a robust collaboration system that manages team formation, role assignments, and project tracking, while integrating with tools like GitHub and Discord. Advanced features include user profiles, real-time notifications, feedback collection, and a complete subscription management system with payment processing via Flutterwave.",
+      tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "Express", "Socket.io", "OpenAI", "Firebase Auth", "Tailwind CSS"],
+      image: projectrix,
+      mobileImage: projectrixMobile,
+      github: null,
+      live: "https://www.projectrix.app/",
+      category: "fullstack",
+      number: "01"
+    },
+    {
       title: "SkillNest",
       description: "An innovative full-stack e-learning platform revolutionizing online education through cutting-edge technology and user-centric design. Built with a large-scale codebase implementing advanced state management techniques, the platform offers video-based courses, real-time progress tracking, secure payment integration, and a seamless, intuitive user experience. The system includes comprehensive admin dashboards, course management tools, and student analytics, designed to bridge the gap between learners and quality educational content across various disciplines.",
       tags: ["Next.js", "Node.js", "TypeScript", "MongoDB", "Redis", "React", "Express", "JWT", "Stripe", "Socket.io"],
@@ -51,7 +64,7 @@ const ModernProjects = () => {
       github: null,
       live: "https://skill-nest-client.vercel.app/",
       category: "fullstack",
-      number: "01"
+      number: "02"
     },
 
     {
@@ -63,7 +76,7 @@ const ModernProjects = () => {
       github: null,
       live: "https://testing-george.vercel.app/",
       category: "fullstack",
-      number: "02"
+      number: "03"
     },
     {
       title: "Personal Portfolio",
@@ -74,7 +87,7 @@ const ModernProjects = () => {
       github: "https://github.com/georgedevs/Portfolio",
       live: "https://ukohgodwingeorge-portfolio.vercel.app/",
       category: "frontend",
-      number: "03"
+      number: "04"
     },
  
     {
@@ -86,7 +99,7 @@ const ModernProjects = () => {
       github: "https://github.com/georgedevs/EmpireBooks",
       live: "https://empire-books.vercel.app/",
       category: "frontend",
-      number: "04"
+      number: "05"
     },
     {
       title: "E-Voting System",
@@ -135,27 +148,6 @@ const ModernProjects = () => {
     
   ];
 
-  const MobileMockup = ({ image }) => (
-    <div className="relative w-full max-w-[280px] mx-auto">
-      {/* Phone frame */}
-      <div className="relative rounded-[3rem] overflow-hidden border-8 border-gray-900 aspect-[9/19.5] shadow-2xl">
-        {/* Dynamic notch */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 h-7 w-36 bg-gray-900 rounded-b-3xl z-20" />
-        
-        {/* Screen content */}
-        <div className="absolute inset-0 overflow-hidden">
-          <img 
-            src={image} 
-            alt="Mobile view" 
-            className="w-full h-full object-cover"
-          />
-        </div>
-      </div>
-  
-      {/* Reflection effect */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-white/10 pointer-events-none" />
-    </div>
-  );
 
 
   useEffect(() => {
