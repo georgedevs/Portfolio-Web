@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUp } from 'lucide-react';
-import { useTheme, themeConfig } from '../context/ThemeContext';
 
 const ScrollToTop = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const { theme } = useTheme();
 
   useEffect(() => {
     const toggleVisibility = () => {
@@ -41,7 +39,7 @@ const ScrollToTop = () => {
             transition: { duration: 0.2 }
           }}
           whileTap={{ scale: 0.9 }}
-          className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-xl overflow-hidden shadow-lg"
+          className="fixed bottom-24 md:bottom-8 right-8 md:right-24 z-50 w-12 h-12 rounded-xl overflow-hidden shadow-lg"
         >
           {/* Animated gradient background */}
           <motion.div

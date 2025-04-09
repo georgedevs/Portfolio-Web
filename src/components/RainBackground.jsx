@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import { useTheme } from "../context/ThemeContext";
 import { motion } from 'framer-motion';
 
 export const RainBackground = () => {
     const [raindrops, setRaindrops] = useState([]);
-    const { theme } = useTheme();
   
     useEffect(() => {
       const generateRaindrops = () => {

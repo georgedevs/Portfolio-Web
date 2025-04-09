@@ -9,7 +9,8 @@ import {
 import { FaReact, FaNodeJs } from 'react-icons/fa';
 import { SiMongodb, SiExpress, SiTailwindcss } from 'react-icons/si';
 import { useToast, ToastContainer } from './ToastNotification';
-import SimpleMarkdownRenderer from './SimpleMarkdownRenderer'; // Add this import
+import SimpleMarkdownRenderer from './SimpleMarkdownRenderer';
+
 
 const OpenAIChatInterface = ({ isOpen, closeChat }) => {
   const { theme, toggleTheme } = useTheme();
@@ -41,7 +42,7 @@ const OpenAIChatInterface = ({ isOpen, closeChat }) => {
     }
   }, [isOpen, messages.length]);
 
-  // Fix chat scrolling issues
+
   useEffect(() => {
     // Only attempt to scroll when messages container exists and there are messages or typing
     if (messagesContainerRef.current && (messages.length > 0 || isTyping || isThinking)) {
@@ -53,7 +54,6 @@ const OpenAIChatInterface = ({ isOpen, closeChat }) => {
   // Prevent page scrolling when mouse is over chat container
   useEffect(() => {
     const preventDefaultScroll = (e) => {
-      // Stop the event from propagating to parent elements
       e.stopPropagation();
     };
 
@@ -210,7 +210,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
   const generateFallbackResponse = (userInput) => {
     const normalizedInput = userInput.toLowerCase();
     
-    // Predefined responses for common questions - more conversational now
+    // Predefined responses for common questions 
     if (normalizedInput.includes('who') && (normalizedInput.includes('you') || normalizedInput.includes('george'))) {
       setMessages(prev => [...prev, {
         sender: 'bot',
@@ -308,7 +308,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
     ).join('\n\n');
     
     navigator.clipboard.writeText(chatText).then(() => {
-      // Show toast notification instead of alert
+      // Show toast notification 
       addToast({
         message: 'Chat copied to clipboard!',
         type: 'success',
@@ -335,7 +335,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
           exit={{ opacity: 0 }}
           onClick={closeChat} // Close when clicking outside
         >
-          {/* Chat container - improved mobile responsiveness */}
+          {/* Chat container */}
           <motion.div 
             className={`${themeConfig[theme].accent} max-w-lg w-full h-auto min-h-[400px] max-h-[85vh] rounded-2xl overflow-hidden shadow-2xl relative flex flex-col sm:min-h-[600px]`}
             initial={{ scale: 0.9, y: 50, opacity: 0 }}
@@ -362,7 +362,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
                 </div>
                 <div>
                   <h3 className={`font-medium ${themeConfig[theme].text}`}>
-                    George's AI Assistant
+                    George&apos;s AI Assistant
                   </h3>
                   <p className={`text-xs ${themeConfig[theme].textMuted}`}>
                     Ask me anything about George
@@ -393,7 +393,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
               </div>
             </div>
             
-            {/* Settings dropdown - with click outside functionality */}
+            {/* Settings dropdown */}
             <AnimatePresence>
               {showSettings && (
                 <>
@@ -464,7 +464,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
               )}
             </AnimatePresence>
             
-            {/* Messages container - improved scrolling */}
+            {/* Messages container  */}
             <div 
               ref={messagesContainerRef}
               className={`w-full flex-grow overflow-y-auto p-4 space-y-4 ${themeConfig[theme].primary}`} 
@@ -616,7 +616,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
               <div ref={messagesEndRef} />
             </div>
             
-            {/* Input area - Fixed positioning to ensure it's always visible */}
+            {/* Input area*/}
             <div className={`p-4 border-t ${themeConfig[theme].border} backdrop-blur-sm mt-auto`}>
               <div className="relative">
                 <textarea

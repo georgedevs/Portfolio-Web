@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useTheme, themeConfig } from '../context/ThemeContext';
 import { X, CheckCircle, XCircle, Info, AlertTriangle } from 'lucide-react';
 
-// Simple toast notification system
+//toast notification system
 export const useToast = () => {
   const [toasts, setToasts] = React.useState([]);
 
