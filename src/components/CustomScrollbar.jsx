@@ -7,12 +7,12 @@ const CustomScrollbar = () => {
   const [isMobile, setIsMobile] = useState(false);
   const { scrollY } = useScroll();
 
-  // Calculate scroll percentage directly without spring animation
+  // Calculate scroll percentage 
   const scrollPercentage = useTransform(
     scrollY,
     [0, documentHeight - viewportHeight],
     [0, 100],
-    { clamp: true } // This ensures the value stays between 0-100
+    { clamp: true }
   );
 
   // Update dimensions and check mobile
@@ -38,7 +38,6 @@ const CustomScrollbar = () => {
   const [currentPercentage, setCurrentPercentage] = useState(0);
   
   useEffect(() => {
-    // Updated to use the new .on("change", callback) method instead of .onChange(callback)
     const unsubscribe = scrollPercentage.on("change", latest => {
       // Round to nearest integer and clamp between 0-100
       const percentage = Math.max(0, Math.min(100, Math.round(latest)));
