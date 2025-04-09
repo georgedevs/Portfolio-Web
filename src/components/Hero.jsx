@@ -37,20 +37,20 @@ const BouncingHelloWorld = () => {
       Math.pow(e.clientY - textCenterY, 2)
     );
     
-    // 5cm is approximately 189 pixels (assuming 96 DPI)
+
     const hoverRange = 189;
     setIsHovered(distance < hoverRange);
   };
 
   const createParticles = (x, y) => {
-    const particleCount = 60; // Increased for more spectacular effect
+    const particleCount = 60; 
     const particles = [];
     
     // Create main explosion particles
     for (let i = 0; i < particleCount; i++) {
       const angle = (i / particleCount) * Math.PI * 2;
-      const velocity = 12 + Math.random() * 8; // More varied velocities
-      const size = Math.random() * 12 + 4; // Larger size variation
+      const velocity = 12 + Math.random() * 8; 
+      const size = Math.random() * 12 + 4; 
       
       particles.push({
         id: `main-${i}`,
@@ -437,7 +437,6 @@ const ModernHero = () => {
     'Backend Developer',
   ];
 
-  // Mobile-optimized animations
   const mobileVariants = {
     name: {
       hidden: { x: -100, opacity: 0 },
