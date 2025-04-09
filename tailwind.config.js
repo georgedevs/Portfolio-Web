@@ -13,32 +13,7 @@ export default {
       animation: {
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
-      colors: {
-        // Dark theme colors
-        dark: {
-          DEFAULT: '#000000',
-          accent: '#18181b',
-          hover: '#27272a'
-        },
-        // Navy theme colors
-        navy: {
-          DEFAULT: '#0A192F',
-          accent: '#112240',
-          hover: '#1B2C4F'
-        },
-        // Forest theme colors
-        forest: {
-          DEFAULT: '#0B3B2F',
-          accent: '#124B3E',
-          hover: '#1A5A4C'
-        },
-        // Purple theme colors
-        royal: {
-          DEFAULT: '#2D1B69',
-          accent: '#382180',
-          hover: '#432796'
-        }
-      },
+
       keyframes: {
         gradient: {
           '0%, 100%': {
