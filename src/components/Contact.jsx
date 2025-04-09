@@ -38,7 +38,7 @@ const EnhancedContact = () => {
 
   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xgvezbyl';
 
-  // Fancy contact info with motion effects
+  // Contact Info
   const contactInfo = [
     {
       icon: Phone,
@@ -69,7 +69,7 @@ const EnhancedContact = () => {
     }
   ];
 
-  // Enhanced social links with hover effects
+  // Social Links
   const socialLinks = [
     { 
       icon: Github, 
@@ -94,7 +94,7 @@ const EnhancedContact = () => {
     }
   ];
 
-  // Special features for project
+  // Project Features
   const projectFeatures = [
     {
       icon: Code,
@@ -187,7 +187,7 @@ const EnhancedContact = () => {
     }
   };
 
-  // Fancy Card component for info items
+  // Fancy Card
   const FancyCard = ({ icon: Icon, title, children, gradient, motionProps }) => (
     <motion.div
       whileHover={motionProps?.hover}
@@ -299,7 +299,7 @@ const EnhancedContact = () => {
       <Confetti />
       <RainBackground />
       
-      {/* Decorative Elements - Enhanced with more interesting shapes */}
+      {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden">
         {/* Main Blobs */}
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl opacity-10 animate-blob" />
@@ -334,7 +334,7 @@ const EnhancedContact = () => {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {/* Header Section - Enhanced with animations */}
+        {/* Header Section*/}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -375,13 +375,10 @@ const EnhancedContact = () => {
           
           <div className="h-1 w-20 mx-auto rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500" />
           
-             
-       
-     
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-start">
-          {/* Left Column - Contact Info & Social - Enhanced with better card designs */}
+          {/* Left Column - Contact Info & Social */}
           <div className="space-y-8">
             {/* Contact Cards */}
             <motion.div
@@ -403,7 +400,7 @@ const EnhancedContact = () => {
               ))}
             </motion.div>
 
-            {/* Social Links - Improved with 3D-like effects */}
+            {/* Social Links*/}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -421,7 +418,7 @@ const EnhancedContact = () => {
             </motion.div>
           </div>
 
-          {/* Right Column - Contact Form - Enhanced with progress indicator */}
+          {/* Right Column - Contact Form with progress indicator */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -533,7 +530,7 @@ const EnhancedContact = () => {
                 </div>
               </div>
 
-              {/* Submit Button - Enhanced with better animations */}
+              {/* Submit Button */}
               <motion.button
                 type="submit"
                 disabled={isSubmitting}
@@ -571,7 +568,7 @@ const EnhancedContact = () => {
                 </div>
               </motion.button>
 
-              {/* Success/Error Message - Enhanced with better animations */}
+              {/* Success/Error Message */}
               <AnimatePresence mode="wait">
                 {submitStatus && (
                   <motion.div
