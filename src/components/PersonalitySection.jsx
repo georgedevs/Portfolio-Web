@@ -17,7 +17,7 @@ const PersonalitySection = () => {
   const tabsContainerRef = useRef(null);
   
   
-  // Categories and items to reveal  personality
+  // Categories
   const tabs = [
     { id: 'hobbies', label: 'Hobbies & Interests', icon: Heart },
     { id: 'story', label: 'My Journey', icon: Book },
@@ -195,7 +195,6 @@ const PersonalitySection = () => {
     setCurrentQuote((prev) => (prev === 0 ? content.inspiration.quotes.length - 1 : prev - 1));
   };
 
-  // Renders the content based on active tab
   const renderContent = () => {
     switch (activeTab) {
       case 'hobbies':
