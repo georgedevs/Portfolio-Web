@@ -28,7 +28,7 @@ const ModernFooter = () => {
         />
 
         <div className="relative flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-          {/* Logo/Brand */}
+       
           <motion.div
             whileHover={{ scale: 1.05 }}
             className={`text-lg font-bold ${themeConfig[theme].text}`}
