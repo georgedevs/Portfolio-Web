@@ -4,7 +4,6 @@ const ThemeContext = createContext();
 
 export const themeConfig = {
   light: {
-    // Keep light theme as is - it works well
     primary: 'bg-white',
     secondary: 'bg-gray-50',
     text: 'text-gray-900',
@@ -16,7 +15,6 @@ export const themeConfig = {
     buttonOutline: 'border-gray-200 text-gray-900 hover:bg-gray-50',
   },
   dark: {
-    // Keep dark theme as is - it works well
     primary: 'bg-black',
     secondary: 'bg-neutral-950',
     text: 'text-white',
@@ -28,7 +26,6 @@ export const themeConfig = {
     buttonOutline: 'border-neutral-800 text-white hover:bg-neutral-900',
   },
   blue: {
-    // Deep Ocean theme
     primary: 'bg-[#0A192F]', // Deeper, richer blue
     secondary: 'bg-[#112240]', // Slightly lighter navy
     text: 'text-[#E6F1FF]', // Soft blue-white
