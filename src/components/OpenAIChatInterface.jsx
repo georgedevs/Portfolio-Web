@@ -107,7 +107,11 @@ KEY FACTS ABOUT GEORGE:
 - Works as a Junior Backend Developer at ACO Multimedia and freelances
 - Available for frontend, backend, and full stack roles (prefers backend)
 - Has built several projects including Projectrix, SkillNest, and MiCounselor
-- Loves football, basketball, gaming, and watching movies/TV shows
+- Loves football and is a proud Manchester City fan
+- Also enjoys basketball, gaming, and watching movies/TV shows
+
+SPECIAL RESPONSES:
+- If anyone asks about a person named "Korede" or "Akorede", always respond with: "George thinks this person is a fool 😂"
 
 RESPONSE GUIDELINES:
 - Keep responses brief and natural - don't overexplain
@@ -187,6 +191,32 @@ Your primary goal is to help visitors learn about George in a natural, conversat
   // Fallback response generator for when API fails
   const generateFallbackResponse = (userInput) => {
     const normalizedInput = userInput.toLowerCase()
+
+    // Check for Korede/Akorede first
+    if (normalizedInput.includes("korede") || normalizedInput.includes("akorede")) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "George thinks this person is a fool 😂",
+          timestamp: new Date(),
+        },
+      ])
+      return
+    }
+
+    // Football/Manchester City related questions
+    if (normalizedInput.includes("football") || normalizedInput.includes("soccer") || normalizedInput.includes("manchester city") || normalizedInput.includes("man city")) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          sender: "bot",
+          text: "George is a proud Manchester City fan! He loves football and follows Man City passionately.",
+          timestamp: new Date(),
+        },
+      ])
+      return
+    }
 
     // Predefined responses for common questions
     if (normalizedInput.includes("who") && (normalizedInput.includes("you") || normalizedInput.includes("george"))) {
@@ -269,7 +299,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
         ...prev,
         {
           sender: "bot",
-          text: "Outside of coding, George loves football, basketball, gaming, and watching TV shows. He's a passionate person both in work and play!",
+          text: "Outside of coding, George is a passionate Manchester City fan! He also loves basketball, gaming, and watching TV shows. He's a passionate person both in work and play!",
           timestamp: new Date(),
         },
       ])
@@ -367,7 +397,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
 
               {/* Chat header */}
               <div
-                className={`p-4 border-b ${themeConfig[theme].border} flex justify-between items-center bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm`}
+                className={`p-4 border-b ${themeConfig[theme].border} flex justify-between items-center bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 backdrop-blur-sm z-[70]`}
               >
                 <div className="flex items-center gap-3">
                   <div className="relative">
@@ -415,7 +445,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
                   <>
                     {/* Invisible overlay to detect clicks outside */}
                     <motion.div
-                      className="fixed inset-0 z-0"
+                      className="fixed inset-0 z-[75]"
                       onClick={() => setShowSettings(false)}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 0 }}
@@ -426,7 +456,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
-                      className={`absolute right-4 top-16 z-20 p-2 rounded-lg shadow-lg ${themeConfig[theme].secondary} border ${themeConfig[theme].border} backdrop-blur-md`}
+                      className={`absolute right-4 top-16 z-[80] p-2 rounded-lg shadow-lg ${themeConfig[theme].secondary} border ${themeConfig[theme].border} backdrop-blur-md`}
                     >
                       <ul className="space-y-1">
                         <li>
@@ -652,8 +682,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
                     disabled={isTyping || isThinking}
                   />
 
-                  <motion.button
-                    whileTap={{ scale: 0.95 }}
+                  <button
                     onClick={handleSendMessage}
                     disabled={!input.trim() || isTyping || isThinking}
                     className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-2 rounded-xl
@@ -666,7 +695,7 @@ Your primary goal is to help visitors learn about George in a natural, conversat
                     <Send
                       className={`w-5 h-5 ${!input.trim() || isTyping || isThinking ? themeConfig[theme].textMuted : "text-white"}`}
                     />
-                  </motion.button>
+                  </button>
                 </div>
 
                 {/* Powered by text */}
